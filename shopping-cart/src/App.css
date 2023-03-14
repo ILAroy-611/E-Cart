@@ -2,7 +2,21 @@
   box-sizing: border-box;
 }
 
+/* common styles */
+.btn{
+  
+  display:inline-block;
+  /* font-size: 2rem; */
+}
 
+.link{
+  text-decoration: none;
+  color:goldenrod;
+  display: inline-block;
+}
+
+/* App styling */
 .App {
   text-align: center;
+  
 }
