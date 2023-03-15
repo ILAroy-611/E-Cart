@@ -1,0 +1,50 @@
+.cart-primary-header{
+    padding:1.2rem 8rem;
+    width:100%;
+    justify-content: space-between;
+    height: 8rem;
+    background:linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.8))
+}
+
+.logo h2{
+    font-size:4rem;
+    color:goldenrod;
+    font-weight: 600;
+}
+
+.logo img{
+    height:4rem;
+}
+
+.cart-search-bar{
+    gap:1rem;
+    width:40%;
+    
+}
+
+.cart-search{
+    padding:0.5rem 1rem;
+    font-size:2rem;
+    width:100%;
+    outline:none;
+    border:none;
+    border-bottom: 1px solid goldenrod;
+    border-radius: 1rem;;
+}
+.cart-search-icon{
+    font-size:2.6rem;
+    cursor: pointer;
+    color:goldenrod;
+    font-weight: bold;
+}
+
+.cart-primary-navbar ul{
+    gap:4rem;
+}
+
+.cart-primary-navbar li{
+    font-size:2rem;
+    color:goldenrod;
+    font-weight: 600;
+    text-transform: capitalize;
+}

@@ -15,6 +15,12 @@
   display: inline-block;
 }
 
+.flex{
+  display:flex;
+  align-items: center;
+  gap:1rem;
+}
+
 /* App styling */
 .App {
   text-align: center;

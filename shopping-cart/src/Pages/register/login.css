@@ -1,0 +1,23 @@
+.cart-login-container{
+    max-width:50%;
+    margin:0 auto;
+    padding:1rem 2rem;
+    display: block;
+}
+
+.cart-login-container legend{
+    font-size: 4rem;
+    color:goldenrod;
+    margin: 2rem 0;
+}
+
+.register-link-p{
+    font-size:2rem;
+    margin:3rem 0;
+    color:black;
+}
+
+.register-link{
+    font-size: 2.4rem;;
+}
+

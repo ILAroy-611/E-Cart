@@ -1,12 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
-import Register from "./Pages/Register";
 import "./App.css";
-import Login from "./Pages/Login";
+import Login from "./Pages/login/Login";
+import Register from "./Pages/register/Register";
+import Header from "./Components/header/Header";
+
+
 
 function App() {
   return (
     <div className="App">
+      <Header/>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route path="/register" element={<Register />}></Route>

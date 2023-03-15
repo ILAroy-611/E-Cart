@@ -1,0 +1,8 @@
+.cart-primary-btn{
+    margin:2rem 0;
+    background-color:goldenrod;
+    color:black;
+    font-weight: 600;
+    font-size:1.8rem !important;
+    height:5rem !important;
+}

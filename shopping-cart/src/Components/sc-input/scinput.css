@@ -1,0 +1,23 @@
+ label{
+    text-align: justify;
+    margin:1rem 0;
+    font-weight: 600;
+}
+ label,
+ input
+{
+    display: inline-block;
+    width:100%;
+    padding:1rem 2rem;
+    font-size: 2rem;
+}
+
+ input{
+    outline:none;
+    margin:0 2rem;
+}
+
+ p{
+    font-size:1.8rem;
+    color:red;
+}
