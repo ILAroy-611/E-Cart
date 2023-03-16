@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../Components/button/PrimaryButton";
 import SCInput from "../../Components/sc-input";
 import useAuth from "../../Hooks/useAuth";
@@ -9,6 +9,7 @@ import "./login.css";
 
 function Register() {
   const {registerUser} = useAuth();
+  const navigate= useNavigate()
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -20,6 +21,7 @@ function Register() {
       try {
         let isUserSignedUp=await registerUser({username:values.username, email:values.email, password:values.password})
         if (isUserSignedUp) {
+          navigate('/')
           window.location.reload();
         }
       } catch (error) {

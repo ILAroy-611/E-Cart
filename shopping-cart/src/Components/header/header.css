@@ -47,4 +47,14 @@
     color:goldenrod;
     font-weight: 600;
     text-transform: capitalize;
+    cursor: pointer;
+}
+
+.cart-icon{
+    font-size:2.4rem;
+    font-weight: bold;
+}
+
+.cart-primary-navbar li:hover{
+    color:white !important;
 }

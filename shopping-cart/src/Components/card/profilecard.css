@@ -1,0 +1,12 @@
+.cart-user-profile-card{
+    max-width:40%;
+    margin:2rem auto;
+    /* border: 1px solid black; */
+}
+
+.profile-setting-icon,
+.profile-edit-icon{
+    font-size:2rem;
+    font-weight: bold;
+    color:goldenrod
+}

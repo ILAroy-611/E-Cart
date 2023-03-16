@@ -2,7 +2,8 @@ import { useState } from "react";
 import instance from "../Store/AxiosInstance";
 
 function useAuth() {
-  const [user, setUser] = useState({});
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
   // const [name, setName] = useState("Ashish");
 
   async function registerUser({ username, email, password }) {
@@ -40,29 +41,46 @@ function useAuth() {
       const response = await instance.post(`users/login`, JSON.stringify(body));
       isUserLoggedIn = true;
       setUser(response?.data?.user || {});
-      // console.log(user);
-      // const dummyUser = {
-      //   email: "ila007@gmail.com",
-      //   password: "12345678",
-      // };
-      // setUser({...user,dummyUser});
-      // console.log(user);
-      // setName('Ila');
-      // console.log('name',name);
       localStorage.setItem("token", response.data.user.token);
       let userInfo = JSON.stringify(response.data.user);
       localStorage.setItem("user", userInfo);
-      // console.log(user)
       return isUserLoggedIn;
     } catch (error) {
       console.error(error);
     }
   }
+
   function logout() {
     localStorage.clear();
     setUser({ user: null });
   }
-  return { registerUser, user, loginUser, logout };
+
+  async function updateUserInfo({username, email, image}){
+    let isUserUpdated=false;
+    const body={
+      user:{
+        username,
+        email,
+        image
+      }
+    }
+    try {
+      const response = await instance.put(`user`,
+      JSON.stringify(body),{
+        headers:{
+          Authorization:`${localStorage.getItem("token")}`
+        }
+      });
+      let userInfo = JSON.stringify(response.data.user);
+      console.log(userInfo)
+      localStorage.setItem("user",userInfo);
+      isUserUpdated=true;
+      return isUserUpdated;
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  return { registerUser, user, loginUser, logout, updateUserInfo  };
 }
 
 export default useAuth;

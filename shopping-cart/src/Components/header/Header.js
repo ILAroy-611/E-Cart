@@ -1,14 +1,16 @@
 import { NavLink } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
-import PrimaryButton from "../button/PrimaryButton";
 // import { useEffect, useState } from "react";
+import { BsCart3 } from "react-icons/bs";
+import { items } from "./dropdownMenuItems";
 import "./header.css";
-
+import SCDropdown from "../dropdown/SCDropdown";
+import { TextButton } from "../button";
 
 function Header() {
   const { logout, user } = useAuth();
-  // console.log("user in header", name)
+  console.log("user in header", user)
   return (
     <header className="cart-primary-header flex">
       <div className="logo ">
@@ -26,11 +28,30 @@ function Header() {
         />
         <BsSearch className="cart-search-icon" />
       </div>
-      { localStorage.getItem("token") ? (
+      {localStorage.getItem("token") ? (
         <nav className="cart-primary-navbar">
           <ul className="flex">
-            <li>Hi {JSON.parse(localStorage.getItem("user")).username}</li>
-            <li> <PrimaryButton Action="Logout" onCLick={logout}/> </li>
+            <SCDropdown
+              placement="bottom"
+              items={items}
+              mainEle={
+                <li>
+                  Hi{" "}
+                  {
+                    user.username
+                  }
+                </li>
+              }
+            />
+            {/* <li>Hi {JSON.parse(localStorage.getItem("user")).username.split(" ")[0]}</li> */}
+            <li>
+              {" "}
+              <TextButton Action="Logout" onCLick={logout} />{" "}
+            </li>
+            <li>
+              {" "}
+              <BsCart3 className="cart-icon" />{" "}
+            </li>
           </ul>
         </nav>
       ) : (

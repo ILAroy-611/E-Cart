@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SCInput from "../../Components/sc-input";
 import PrimaryButton from "../../Components/button/PrimaryButton";
 import useAuth from "../../Hooks/useAuth";
@@ -9,6 +9,7 @@ import "./login.css";
 
 function Login() {
   const { loginUser } = useAuth();
+  const navigate= useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,6 +23,7 @@ function Login() {
           password: values.password,
         });
         if (isUserLoggedIn) {
+          navigate('/')
           window.location.reload();
         }
       } catch (error) {

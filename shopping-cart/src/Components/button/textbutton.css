@@ -1,0 +1,11 @@
+.cart-text-btn{
+    margin:2rem 0;
+    color:goldenrod;
+    font-weight: 600;
+    font-size:2rem !important;
+    height:5rem !important;
+}
+
+.cart-text-btn:hover{
+    color:white !important;
+}
