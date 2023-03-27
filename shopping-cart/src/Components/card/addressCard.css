@@ -1,0 +1,14 @@
+.adddress-card-body p{
+    color:black;
+    letter-spacing: -0.5px;
+    
+}
+
+.ant-card-body{
+    background-color:khaki ;
+}
+
+.ant-card-head-title{
+    font-weight: 700;
+    font-size: 2rem;;
+}

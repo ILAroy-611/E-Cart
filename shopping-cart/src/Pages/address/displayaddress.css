@@ -1,0 +1,31 @@
+.displayaddress-container{
+    max-width: 80%;
+    margin: 3rem auto;
+}
+
+.addresses{
+    align-items: stretch !important;
+    margin-top:3rem;;
+}
+
+.displayaddress-container h3{
+    font-size: 2rem;
+    text-align: justify;
+}
+
+.loading-para{
+    font-size: 4rem;
+    color:black;
+}
+
+.address-link{
+    font-size:2rem;
+    /* border: 1px solid black; */
+    /* border-style: dashed; */
+    height:fit-content;
+    
+}
+
+.displayaddress-header{
+    justify-content: space-between;
+}

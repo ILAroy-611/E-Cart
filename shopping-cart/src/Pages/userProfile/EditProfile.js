@@ -25,7 +25,7 @@ function EditProfile() {
     })
   return (
     <form className="edit-profile-container">
-      <Avatar src={formik.values.image} alt="image" size={100}/>
+      <Avatar src={formik.values?.image ?? "https://t4.ftcdn.net/jpg/02/43/27/53/360_F_243275391_13fluVMJtkV7hnBxItx8D1Ac9MScUkQM.jpg"} alt="image" size={100}/>
       <SCInput
         name="username"
         type="text"
@@ -46,6 +46,7 @@ function EditProfile() {
         label="Image URL: "
         id="cart-edit-profile-image"
         formik={formik}
+        placeholder={formik.values?.image ?? `No Image URL found`}
       />
       <PrimaryButton Action="Edit Profile" onCLick={formik.handleSubmit}/>
     </form>

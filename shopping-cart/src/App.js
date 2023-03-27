@@ -4,8 +4,10 @@ import Login from "./Pages/login/Login";
 import Register from "./Pages/register/Register";
 import Header from "./Components/header/Header";
 import UserProfile from "./Pages/userProfile/UserProfile";
-import "./App.css";
 import { EditProfile } from "./Pages/userProfile";
+import AddAddress from "./Pages/address/AddAddress";
+import DisplayAddress from "./Pages/address/DisplayAddress";
+import "./App.css";
 
 
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/profile" element={<UserProfile />}></Route>
         <Route path="/edit-profile" element={< EditProfile />}></Route>
+        <Route exact path="/address" element={< DisplayAddress />}></Route>
+        <Route path="/address/add" element={< AddAddress />}></Route>
       </Routes>
     </div>
   );

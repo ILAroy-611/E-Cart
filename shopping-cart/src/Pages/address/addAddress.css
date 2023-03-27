@@ -1,0 +1,9 @@
+.add-address-container{
+    max-width:45%;
+    margin:2rem auto;
+}
+
+.add-address-container legend{
+    font-size:3rem;
+    font-weight: 600;
+}
