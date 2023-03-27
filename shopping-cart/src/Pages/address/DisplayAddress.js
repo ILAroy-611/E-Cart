@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import PrimaryButton from "../../Components/button/PrimaryButton";
+// import PrimaryButton from "../../Components/button/PrimaryButton";
 import AddressCard from "../../Components/card/AddressCard";
 import useAddress from "../../Hooks/useAddress";
 import { MdAddLocationAlt } from "react-icons/md";
 import "./displayaddress.css";
 
+
+
 function DisplayAddress() {
-  const { fetchUserAddress, address } = useAddress();
+  const { fetchUserAddress, address, deleteAddress } = useAddress();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchAddress() {
@@ -22,6 +24,15 @@ function DisplayAddress() {
     }
     fetchAddress();
   }, []);
+
+  const handleDeleteAddress=async(addressID)=>{
+    try{
+        await deleteAddress(addressID);
+    }
+    catch(error){
+        console.log(error)
+    }
+  }
   return (
     <section className="displayaddress-container">
       <header className="displayaddress-header flex">
@@ -36,7 +47,7 @@ function DisplayAddress() {
       ) : (
         <div className="flex addresses">
           {address.map((ele) => (
-            <AddressCard key={ele._id} address={ele.address} />
+            <AddressCard key={ele._id} address={ele.address} onCLick={handleDeleteAddress} addressID={ele._id}/>
           ))}
         </div>
       )}

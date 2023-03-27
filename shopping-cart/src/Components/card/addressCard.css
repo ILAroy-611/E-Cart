@@ -12,3 +12,7 @@
     font-weight: 700;
     font-size: 2rem;;
 }
+
+.address-card-footer{
+    border-top: 1px solid black;
+}

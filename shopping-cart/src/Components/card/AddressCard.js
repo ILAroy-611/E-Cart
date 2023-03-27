@@ -2,7 +2,8 @@ import { Card, Space } from "antd";
 import { TextButton } from "../button";
 import "./addressCard.css";
 
-function AddressCard({address}) {
+function AddressCard({address,onCLick, addressID}) {
+  // console.log(addressID)
   return (
     <div >
       <Space direction="vertical" size={16}>
@@ -25,7 +26,7 @@ function AddressCard({address}) {
             </div>
             <footer className="address-card-footer">
               <TextButton Action="Edit" />
-              <TextButton Action="Delete" />
+              <TextButton Action="Delete" onCLick={()=>onCLick(addressID)}/>
               <TextButton Action="Set as Default" />
             </footer>
           </div>
