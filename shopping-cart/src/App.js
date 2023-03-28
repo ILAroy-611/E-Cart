@@ -5,8 +5,8 @@ import Register from "./Pages/register/Register";
 import Header from "./Components/header/Header";
 import UserProfile from "./Pages/userProfile/UserProfile";
 import { EditProfile } from "./Pages/userProfile";
+import { DisplayAddress, EditAddress } from "./Pages/address";
 import AddAddress from "./Pages/address/AddAddress";
-import DisplayAddress from "./Pages/address/DisplayAddress";
 import "./App.css";
 
 
@@ -23,6 +23,7 @@ function App() {
         <Route path="/edit-profile" element={< EditProfile />}></Route>
         <Route exact path="/address" element={< DisplayAddress />}></Route>
         <Route path="/address/add" element={< AddAddress />}></Route>
+        <Route path="/address/edit" element={< EditAddress />}></Route>
       </Routes>
     </div>
   );

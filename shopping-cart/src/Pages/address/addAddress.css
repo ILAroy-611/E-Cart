@@ -7,3 +7,7 @@
     font-size:3rem;
     font-weight: 600;
 }
+
+.add-address-container fieldset{
+    margin-bottom: 2rem;;
+}

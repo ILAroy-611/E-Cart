@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 // import PrimaryButton from "../../Components/button/PrimaryButton";
-import AddressCard from "../../Components/card/AddressCard";
 import useAddress from "../../Hooks/useAddress";
+import { AddressCard } from "../../Components/card";
 import { MdAddLocationAlt } from "react-icons/md";
 import "./displayaddress.css";
 
