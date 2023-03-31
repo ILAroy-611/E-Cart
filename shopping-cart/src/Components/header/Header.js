@@ -3,14 +3,14 @@ import { BsSearch } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
 // import { useEffect, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
-import { items } from "./dropdownMenuItems";
+import { adminItems, items } from "./dropdownMenuItems";
 import "./header.css";
 import SCDropdown from "../dropdown/SCDropdown";
 import { TextButton } from "../button";
 
 function Header() {
   const { logout, user } = useAuth();
-  // console.log("user in header", user)
+  console.log("user in header", user)
   return (
     <header className="cart-primary-header flex">
       <div className="logo ">
@@ -31,6 +31,21 @@ function Header() {
       {localStorage.getItem("token") ? (
         <nav className="cart-primary-navbar">
           <ul className="flex">
+            {user.isAdmin?
+            <SCDropdown
+            placement="bottom"
+            items={adminItems}
+            mainEle={
+              <li>
+                Hi{" "}
+                {
+                  user.username
+                }*
+              </li>
+            }
+          />
+            :
+            <>
             <SCDropdown
               placement="bottom"
               items={items}
@@ -43,15 +58,18 @@ function Header() {
                 </li>
               }
             />
-            {/* <li>Hi {JSON.parse(localStorage.getItem("user")).username.split(" ")[0]}</li> */}
-            <li>
-              {" "}
-              <TextButton Action="Logout" onCLick={logout} />{" "}
-            </li>
             <li>
               {" "}
               <BsCart3 className="cart-icon" />{" "}
             </li>
+            </>}
+            {/* <li>Hi {JSON.parse(localStorage.getItem("user")).username.split(" ")[0]}</li> */}
+            
+            <li>
+              {" "}
+              <TextButton Action="Logout" onCLick={logout} />{" "}
+            </li>
+            
           </ul>
         </nav>
       ) : (

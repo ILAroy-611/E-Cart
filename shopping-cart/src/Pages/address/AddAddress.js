@@ -47,7 +47,7 @@ function AddAddress() {
   });
 
   return (
-    <section className="add-address-container container">
+    <section className="form-container container">
       <form>
         <legend>Add a new address</legend>
         <fieldset>

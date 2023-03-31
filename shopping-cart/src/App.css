@@ -21,6 +21,11 @@
   gap:1rem;
 }
 
+.form-container{
+  max-width:45%;
+  margin:2rem auto;
+}
+
 /* App styling */
 .App {
   text-align: center;

@@ -26,7 +26,7 @@ function useAddress() {
 
   //to add a new address-
   async function addAddress(userAddres) {
-    console.log(userAddres);
+    // console.log(userAddres);
     let newAddressAdded = false;
     let body = {
       address: {

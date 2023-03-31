@@ -21,7 +21,7 @@ function EditAddress() {
   });
   return (
     <div>
-      <form className="edit-address-container">
+      <form className="form-container">
         <fieldset>
           <legend>Edit your address</legend>
           <SCInput

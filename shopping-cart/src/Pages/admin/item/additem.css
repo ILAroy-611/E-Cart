@@ -1,0 +1,44 @@
+.add-item-container{
+    max-width:90%;
+    margin:2rem auto;
+    /* border: 1px solid black; */
+    padding-left: 2rem;
+    padding-right: 6rem;;
+    justify-content: space-between;
+}
+
+.add-item-form{
+    width:50%;
+}
+.varient{
+    width:40%;
+}
+
+.add-item-form legend{
+    font-size: 3rem;
+    margin-bottom: 2rem;;
+}
+
+.add-item-form h3,
+.varient h3{
+    font-size: 2rem;
+    color:goldenrod;
+    text-align: justify;
+    margin-left: 2rem;;
+    
+}
+
+.gender-select{
+    padding:0.5rem 2rem;
+    margin: 4rem 2rem;
+    width:100%;
+    border-radius: 4px;;
+    justify-content: space-between;
+    border-bottom: 2px solid #DDD;
+    border-right: 2px solid #DDD;
+    box-shadow:-1px -2px 2px #666 ;
+}
+
+.gender-select h4{
+    font-size:2rem;
+}
