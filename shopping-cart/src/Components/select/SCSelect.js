@@ -1,25 +1,31 @@
 import { Select, Space } from "antd";
-
+import './select.css'
 // const handleChange = (value) => {
 //   console.log(`selected ${value}`);
 // };
 
-const SCSelect = ({ formik, name }) => (
+const SCSelect = ({ formik, name, options }) => (
   <Space wrap>
     <Select
-      // placeholder="Connect Frequency"
-      defaultValue="all"
+      // defaultValue="all"
       style={{ width: 120 }}
-      value={formik.values.gender}
+      value={formik.values[name]}
       onChange={(value) => {
         formik.setFieldValue("gender", value);
       }}
       onBlur={formik.handleBlur}
       onSelect={formik.handleChange}
     >
-      <Select.Option value="male">Male</Select.Option>
+
+      {options.map(gender=>{
+        return(
+          <Select.Option value={gender} className="select-values">{gender}</Select.Option>
+        )
+      })}
+
+      {/* <Select.Option value="male">Male</Select.Option>
       <Select.Option value="female">Female</Select.Option>
-      <Select.Option value="all">All</Select.Option>
+      <Select.Option value="all">All</Select.Option> */}
     </Select>
     {/* <Select
       name={name}
