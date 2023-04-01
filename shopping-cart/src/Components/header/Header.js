@@ -10,7 +10,7 @@ import { TextButton } from "../button";
 
 function Header() {
   const { logout, user } = useAuth();
-  console.log("user in header", user)
+  // console.log("user in header", user)
   return (
     <header className="cart-primary-header flex">
       <div className="logo ">

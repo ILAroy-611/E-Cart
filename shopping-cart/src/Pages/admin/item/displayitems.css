@@ -1,0 +1,7 @@
+.admin-item-display{
+    max-width: 90%;
+    margin:3rem auto;
+    align-items: stretch !important;
+    gap:2rem;
+    flex-wrap: wrap;
+}

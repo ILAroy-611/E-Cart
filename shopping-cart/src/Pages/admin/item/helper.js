@@ -85,22 +85,26 @@ export const varientOptions=[{
 
 export const genderOptions=["Male", "Female", "All"]
 
-export const initialValues = {
-  category: "",
-  subCatogery: "",
-  name: "",
-  image: "",
-  price: "",
-  brand: "",
-  stars: "",
-  seller: "",
-  quantity: "",
-  soldCount: "",
-  discount: "",
-  size: "",
-  gender: "",
-  ageGroup: "",
-  genere: "",
-  weight: 0,
-  color: "",
-};
+export const getInitialValues=(item)=>{
+  // console.log("item", item)
+  const initialValues = {
+    category: item?.category ?? "" ,
+    subCatogery: item?.subCatogery ?? "" ,
+    name: item?.name ?? "" ,
+    image: item?.image ?? "" ,
+    price: item?.price ?? "" ,
+    brand: item?.brand ?? "" ,
+    stars: item?.stars ?? "" ,
+    seller: item?.seller ?? "" ,
+    quantity: item?.quantity ?? "" ,
+    soldCount: item?.soldCount ?? "" ,
+    discount: item?.discount ?? "" ,
+    size: item?.size ?? "" ,
+    gender: item?.varient?.gender ?? "" ,
+    ageGroup: item?.varient?.ageGroup ?? "" ,
+    genere: item?.varient?.genere ?? "" ,
+    weight: item?.varient?.weight ?? 0,
+    color: item?.varient?.color ?? "" ,
+  };
+  return initialValues
+}

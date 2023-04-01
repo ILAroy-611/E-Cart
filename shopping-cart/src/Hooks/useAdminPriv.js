@@ -2,7 +2,7 @@ import { useState } from "react";
 import instance from "../Store/AxiosInstance";
 
 function useAdminPriv() {
-  const [item, setItem] = useState();
+  const [items, setItems] = useState();
 
   // to add items into database-
   async function addItems(itemInfo) {
@@ -11,18 +11,14 @@ function useAdminPriv() {
       items: [itemInfo],
     };
     try {
-        console.log(JSON.stringify(body))
-      const response = await instance.post(
-        `admin/add`,
-        JSON.stringify(body),
-        {
-          headers: {
-            Authorization: `${localStorage.getItem("token")}`,
-          },
+      console.log(JSON.stringify(body));
+      const response = await instance.post(`admin/add`, JSON.stringify(body), {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
         },
-      );
+      });
       itemAdded = true;
-      console.log(response);
+      // console.log(response);
       // setItem(response)
     } catch (error) {
       console.log(error);
@@ -30,7 +26,25 @@ function useAdminPriv() {
     return itemAdded;
   }
 
-  return { addItems, item };
+  // to get all items from database-
+  async function getAllItemsAdmin() {
+    try {
+      const response = await instance.get(`admin/all`, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      });
+      setItems(response.data.products)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function editItem(){
+
+  }
+
+  return { addItems, items, getAllItemsAdmin, editItem };
 }
 
 export default useAdminPriv;

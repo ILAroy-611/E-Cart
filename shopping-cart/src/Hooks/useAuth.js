@@ -72,7 +72,7 @@ function useAuth() {
         }
       });
       let userInfo = JSON.stringify(response.data.user);
-      console.log(userInfo)
+      // console.log(userInfo)
       localStorage.setItem("user",userInfo);
       isUserUpdated=true;
       return isUserUpdated;
