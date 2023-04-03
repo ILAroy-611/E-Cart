@@ -8,6 +8,12 @@ export const inputOption = [
   },
   {
     type: "text",
+    name: "discription",
+    id: "cart-add-item-discription",
+    placeholder: "Discription of item",
+  },
+  {
+    type: "text",
     name: "category",
     id: "cart-add-item-category",
     placeholder: "Category of item",
@@ -32,6 +38,12 @@ export const inputOption = [
   },
   {
     type: "number",
+    name: "discount",
+    id: "cart-add-item-discount",
+    placeholder: "Discount on price",
+  },
+  {
+    type: "number",
     name: "quantity",
     id: "cart-add-item-quantity",
     placeholder: "Quantity of item",
@@ -53,6 +65,12 @@ export const inputOption = [
     name: "stars",
     id: "cart-add-item-stars",
     placeholder: "Stars of item",
+  },
+  {
+    type: "text",
+    name: "size",
+    id: "cart-add-item-size",
+    placeholder: "Size of item",
   },
   
 ];

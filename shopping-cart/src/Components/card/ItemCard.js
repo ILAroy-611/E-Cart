@@ -3,11 +3,20 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import ActionButton from "../button/ActionButton";
 // import useAdminPriv from "../../Hooks/useAdminPriv";
 import "./itemcard.css";
+import useAdminPriv from "../../Hooks/useAdminPriv";
 
 const { Meta } = Card;
 
 function ItemCard({ itemDetail }) {
-console.log(itemDetail);
+// console.log(itemDetail);
+const {deleteItem}= useAdminPriv();
+
+const handleDeleteItem= async()=>{
+  let isItemDeleted= await deleteItem(itemDetail._id)
+  if(isItemDeleted){
+    window.location.reload();
+  }
+}
   return (
     <div>
       <Card
@@ -33,7 +42,7 @@ console.log(itemDetail);
         <Link to="/admin/item/edit" state= {itemDetail}>
           <ActionButton Action="Edit" />
         </Link>
-        <ActionButton Action="Delete" />
+        <ActionButton Action="Delete" onCLick={handleDeleteItem}/>
       </Card>
     </div>
   );

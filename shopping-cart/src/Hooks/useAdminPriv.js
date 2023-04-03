@@ -11,7 +11,6 @@ function useAdminPriv() {
       items: [itemInfo],
     };
     try {
-      console.log(JSON.stringify(body));
       const response = await instance.post(`admin/add`, JSON.stringify(body), {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
@@ -34,17 +33,56 @@ function useAdminPriv() {
           Authorization: `${localStorage.getItem("token")}`,
         },
       });
-      setItems(response.data.products)
+      setItems(response.data.products);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function editItem(){
-
+  //to edit an item's details
+  async function editItem(itemInfo) {
+    console.log(itemInfo);
+    let isItemUpdated = false;
+    let body = {
+      item: itemInfo,
+    };
+    try {
+      await instance.put(`admin/update`, JSON.stringify(body), {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      });
+      // console.log(response)
+      isItemUpdated = true;
+    } catch (error) {
+      console.log(error);
+    }
+    return isItemUpdated;
   }
 
-  return { addItems, items, getAllItemsAdmin, editItem };
+  //to delete an item from database-
+  async function deleteItem(itemID) {
+    let isItemDeleted= false;
+    let body = {
+      item: {
+        id: itemID,
+      },
+    };
+    try {
+      await instance.delete(`admin/delete`, {
+        headers: {
+          authorization: `${localStorage.getItem("token")}`,
+        },
+        data: JSON.stringify(body),
+      });
+      isItemDeleted=true;
+    } catch (error) {
+      console.log(error);
+    }
+    return isItemDeleted
+  }
+
+  return { addItems, items, getAllItemsAdmin, editItem, deleteItem };
 }
 
 export default useAdminPriv;
