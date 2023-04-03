@@ -42,6 +42,10 @@ export const adminItems=[
   },
   {
     key: "3",
+    label: <NavLink to={`/admin/allUsers`}>Users</NavLink>,
+  },
+  {
+    key: "4",
     label: <NavLink to="/profile">My Profile</NavLink>,
   },
 ]

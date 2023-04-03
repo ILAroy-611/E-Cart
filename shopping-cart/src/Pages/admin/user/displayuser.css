@@ -1,0 +1,12 @@
+.display-user-container{
+    max-width: 70%;
+    margin:4rem auto;
+}
+
+/* .display-user-container .flex{
+    gap:0;
+} */
+
+.users-display-grid{
+ flex-wrap: wrap;
+}

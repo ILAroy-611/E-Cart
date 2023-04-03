@@ -8,7 +8,9 @@ import { EditProfile } from "./Pages/userProfile";
 import { DisplayAddress, EditAddress } from "./Pages/address";
 import AddAddress from "./Pages/address/AddAddress";
 import { AddItem, DisplayItems } from "./Pages/admin/item";
+import DisplayUser from "./Pages/admin/user/DisplayUser";
 import "./App.css";
+
 
 
 
@@ -27,6 +29,7 @@ function App() {
         <Route path="/address/edit" element={< EditAddress />}></Route>
         <Route exact path="/admin/item/:mode" element={< AddItem />}></Route>
         <Route path="/admin/items" element={< DisplayItems />}></Route>
+        <Route path="/admin/allUsers" element={< DisplayUser />}></Route>
       </Routes>
     </div>
   );

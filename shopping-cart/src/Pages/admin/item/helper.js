@@ -109,6 +109,7 @@ export const getInitialValues=(item)=>{
     category: item?.category ?? "" ,
     subCatogery: item?.subCatogery ?? "" ,
     name: item?.name ?? "" ,
+    discription:item?.discription ?? "",
     image: item?.image ?? "" ,
     price: item?.price ?? "" ,
     brand: item?.brand ?? "" ,

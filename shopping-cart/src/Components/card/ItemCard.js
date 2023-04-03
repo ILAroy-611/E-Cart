@@ -17,6 +17,7 @@ const handleDeleteItem= async()=>{
     window.location.reload();
   }
 }
+
   return (
     <div>
       <Card

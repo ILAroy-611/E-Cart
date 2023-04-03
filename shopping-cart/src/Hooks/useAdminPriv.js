@@ -3,6 +3,7 @@ import instance from "../Store/AxiosInstance";
 
 function useAdminPriv() {
   const [items, setItems] = useState();
+  const [userList, setUserList] = useState([]);
 
   // to add items into database-
   async function addItems(itemInfo) {
@@ -82,7 +83,26 @@ function useAdminPriv() {
     return isItemDeleted
   }
 
-  return { addItems, items, getAllItemsAdmin, editItem, deleteItem };
+  //to get all users-
+  async function fetchAllUsers(){
+    let total=0;
+    let userList=[]
+    try {
+      const response = await instance.get(`admin/allUsers`,{
+        headers:{
+          authorization: `${localStorage.getItem("token")}`,
+        }
+      });
+      userList=response.data.allUsers;
+        // setUserList([...userList, ...response.data.allUsers ]);
+        total=response.data.allUsers.length
+    } catch (error) {
+        console.log(error);
+    }
+    return {userList, total}
+  }
+
+  return { fetchAllUsers, addItems, items, getAllItemsAdmin, editItem, deleteItem };
 }
 
 export default useAdminPriv;
