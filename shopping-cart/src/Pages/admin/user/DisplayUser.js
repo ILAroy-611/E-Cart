@@ -8,6 +8,7 @@ import SCPagination from "../../../Components/pagination/SCPagination";
 import { UserCard } from "../../../Components/card";
 import "./displayuser.css";
 
+
 function DisplayUser() {
   const { fetchAllUsers } = useAdminPriv();
   const [paginationInfo, setPaginationInfo] = useState({
@@ -51,6 +52,7 @@ function DisplayUser() {
     async function getAllUsers() {
       try {
         const { total, userList } = await fetchAllUsers();
+        // filetredArray= filetring(userList, searchWord)
         setLoading(false);
         setPaginationInfo({
           ...paginationInfo,
@@ -74,7 +76,6 @@ function DisplayUser() {
       ) : (
         <div className="display-user-container">
           <div className="flex">
-            {console.log("hi")}
             <SCInput
               type="search"
               name="searchWord"

@@ -3,7 +3,6 @@ import instance from "../Store/AxiosInstance";
 
 function useAdminPriv() {
   const [items, setItems] = useState();
-  const [userList, setUserList] = useState([]);
 
   // to add items into database-
   async function addItems(itemInfo) {
@@ -12,14 +11,13 @@ function useAdminPriv() {
       items: [itemInfo],
     };
     try {
-      const response = await instance.post(`admin/add`, JSON.stringify(body), {
+      await instance.post(`admin/add`, JSON.stringify(body), {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
       });
       itemAdded = true;
       // console.log(response);
-      // setItem(response)
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +61,7 @@ function useAdminPriv() {
 
   //to delete an item from database-
   async function deleteItem(itemID) {
-    let isItemDeleted= false;
+    let isItemDeleted = false;
     let body = {
       item: {
         id: itemID,
@@ -76,33 +74,89 @@ function useAdminPriv() {
         },
         data: JSON.stringify(body),
       });
-      isItemDeleted=true;
+      isItemDeleted = true;
     } catch (error) {
       console.log(error);
     }
-    return isItemDeleted
+    return isItemDeleted;
   }
 
   //to get all users-
-  async function fetchAllUsers(){
-    let total=0;
-    let userList=[]
+  async function fetchAllUsers() {
+    let total = 0;
+    let userList = [];
     try {
-      const response = await instance.get(`admin/allUsers`,{
-        headers:{
+      const response = await instance.get(`admin/allUsers`, {
+        headers: {
           authorization: `${localStorage.getItem("token")}`,
-        }
+        },
       });
-      userList=response.data.allUsers;
-        // setUserList([...userList, ...response.data.allUsers ]);
-        total=response.data.allUsers.length
+      userList = response.data.allUsers;
+      // setUserList([...userList, ...response.data.allUsers ]);
+      total = response.data.allUsers.length;
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-    return {userList, total}
+    return { userList, total };
   }
 
-  return { fetchAllUsers, addItems, items, getAllItemsAdmin, editItem, deleteItem };
+  //to block a user-
+  async function blockUsers(userID) {
+    console.log(userID)
+    let body = {
+      user: {
+        id: userID,
+      },
+    };
+    try {
+      const response = await instance.post(
+        `admin/allUsers/block`,
+        JSON.stringify(body),
+        {
+          headers: {
+            authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function unblockUsers(userID) {
+    console.log(userID)
+    let body = {
+      user: {
+        id: userID,
+      },
+    };
+    try {
+      const response = await instance.post(
+        `admin/allUsers/unBlock`,
+        JSON.stringify(body),
+        {
+          headers: {
+            authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  return {
+    blockUsers,
+    unblockUsers,
+    fetchAllUsers,
+    addItems,
+    items,
+    getAllItemsAdmin,
+    editItem,
+    deleteItem,
+  };
 }
 
 export default useAdminPriv;
