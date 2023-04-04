@@ -39,12 +39,28 @@ function DisplayUser() {
     handleSetCurrentUsers(offset);
   };
 
+  const searchUser =(userList, searchWord)=>{
+    console.log(userList,searchWord)
+    if(searchWord!=""){
+      const filteredArray= userList.filter(ele=>Object.values(ele).includes(searchWord))
+      return filteredArray;
+    }
+    else{
+      return userList
+    }
+  };
+
+  const handleSearchUser=(userList, searchWord)=>{
+    const response = searchUser(userList, searchWord);
+    console.log('in search',response)
+    setPaginationInfo({...paginationInfo, currentPageUsers: response})
+  }
+
   const formik = useFormik({
     initialValues: {
       searchWord: "",
     },
     // validationSchema:"",
-    onSubmit: () => {},
   });
   const [loading, setLoading] = useState(true);
 
@@ -52,14 +68,16 @@ function DisplayUser() {
     async function getAllUsers() {
       try {
         const { total, userList } = await fetchAllUsers();
-        // filetredArray= filetring(userList, searchWord)
+        // filetredArray= filetring()
+        const response = searchUser(userList, formik.values.searchWord);
+        console.log('is effect',response)
         setLoading(false);
         setPaginationInfo({
           ...paginationInfo,
           totalUsers: total,
-          usersArray: userList,
+          usersArray: response,
           totalNumberofPages: Math.ceil(total / paginationInfo.usersPerPage),
-          currentPageUsers:userList.slice(0,paginationInfo.usersPerPage)
+          currentPageUsers:response.slice(0,paginationInfo.usersPerPage)
         });
         
       } catch (error) {
@@ -83,7 +101,7 @@ function DisplayUser() {
               formik={formik}
               id="search"
             />
-            <FaSearch className="cart-search-icon" />
+            <FaSearch className="cart-search-icon" onClick={()=>handleSearchUser(paginationInfo.usersArray,formik.values.searchWord)}/>
           </div>
           <div className="users-display-grid flex">
           {paginationInfo.currentPageUsers.map(ele=>{

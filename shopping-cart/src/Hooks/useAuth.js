@@ -31,6 +31,7 @@ function useAuth() {
 
   async function loginUser({ email, password }) {
     let isUserLoggedIn = false;
+    // let errorMsg="" ;
     let body = {
       user: {
         email,
@@ -46,7 +47,9 @@ function useAuth() {
       localStorage.setItem("user", userInfo);
       return isUserLoggedIn;
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data.msg);
+      // errorMsg=error.response.data.msg;
+      // return errorMsg;
     }
   }
 
@@ -77,7 +80,7 @@ function useAuth() {
       isUserUpdated=true;
       return isUserUpdated;
     } catch (error) {
-      console.error(error)
+      console.error(error.response.data)
     }
   }
   return { registerUser, user, loginUser, logout, updateUserInfo  };

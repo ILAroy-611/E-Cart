@@ -7,7 +7,7 @@ import useAdminPriv from "../../Hooks/useAdminPriv";
 
 const { Meta } = Card;
 function UserCard({userDetail}) {
-  console.log(userDetail);
+  // console.log(userDetail);
   const {blockUsers,unblockUsers}= useAdminPriv();
 
   const handleBlockUser= async(userID)=>{
