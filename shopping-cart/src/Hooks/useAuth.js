@@ -6,6 +6,7 @@ function useAuth() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
   // const [name, setName] = useState("Ashish");
 
+  //to register a user
   async function registerUser({ username, email, password }) {
     let isUserSignedUp = false;
     let body = {
@@ -29,6 +30,7 @@ function useAuth() {
     }
   }
 
+  // to login a user
   async function loginUser({ email, password }) {
     let isUserLoggedIn = false;
     // let errorMsg="" ;
@@ -58,6 +60,7 @@ function useAuth() {
     setUser({ user: null });
   }
 
+  //to edit user info
   async function updateUserInfo({username, email, image}){
     let isUserUpdated=false;
     const body={

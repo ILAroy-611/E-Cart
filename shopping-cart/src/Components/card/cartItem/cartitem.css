@@ -1,0 +1,9 @@
+.cart-item-container{
+    max-width:100%;
+    margin:0 auto;
+}
+
+.cart-item-details{
+    align-items: stretch !important;
+    width:100%;
+}

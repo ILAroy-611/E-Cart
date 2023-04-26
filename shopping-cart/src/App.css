@@ -21,6 +21,20 @@
   gap:1rem;
 }
 
+.flex-wrap{
+  display:flex;
+  /* align-items: center; */
+  flex-wrap: wrap;
+  gap:2rem;
+  align-items: stretch;
+}
+
+.flex-item{
+  flex-shrink: 0;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
 .form-container{
   max-width:45%;
   margin:2rem auto;
@@ -29,5 +43,4 @@
 /* App styling */
 .App {
   text-align: center;
-  
 }

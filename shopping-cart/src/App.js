@@ -9,29 +9,39 @@ import { DisplayAddress, EditAddress } from "./Pages/address";
 import AddAddress from "./Pages/address/AddAddress";
 import { AddItem, DisplayItems } from "./Pages/admin/item";
 import DisplayUser from "./Pages/admin/user/DisplayUser";
+import useAuth from "./Hooks/useAuth";
+import AdminHome from "./Pages/admin/adminHome/AdminHome";
+import MyCart from "./Pages/mycart/MyCart";
 import "./App.css";
 
 
-
-
 function App() {
+  const { user } = useAuth();
+  // console.log("user in app", user);
   return (
-    <div className="App">
-      <Header/>
-      <Routes>
-        <Route exact path="/" element={<Home />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/profile" element={<UserProfile />}></Route>
-        <Route path="/edit-profile" element={< EditProfile />}></Route>
-        <Route exact path="/address" element={< DisplayAddress />}></Route>
-        <Route path="/address/add" element={< AddAddress />}></Route>
-        <Route path="/address/edit" element={< EditAddress />}></Route>
-        <Route exact path="/admin/item/:mode" element={< AddItem />}></Route>
-        <Route path="/admin/items" element={< DisplayItems />}></Route>
-        <Route path="/admin/allUsers" element={< DisplayUser />}></Route>
-      </Routes>
-    </div>
+    
+      <div className="App">
+        <Header />
+        <Routes>
+          {user.isAdmin ? (
+            <Route exact path="/" element={<AdminHome />}></Route>
+          ) : (
+            <Route exact path="/" element={<Home />}></Route>
+          )}
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/profile" element={<UserProfile />}></Route>
+          <Route path="/edit-profile" element={<EditProfile />}></Route>
+          <Route exact path="/address" element={<DisplayAddress />}></Route>
+          <Route path="/address/add" element={<AddAddress />}></Route>
+          <Route path="/address/edit" element={<EditAddress />}></Route>
+          <Route exact path="/admin/item/:mode" element={<AddItem />}></Route>
+          <Route path="/admin/items" element={<DisplayItems />}></Route>
+          <Route path="/admin/allUsers" element={<DisplayUser />}></Route>
+          <Route path="/cart" element={<MyCart />}></Route>
+        </Routes>
+      </div>
+   
   );
 }
 

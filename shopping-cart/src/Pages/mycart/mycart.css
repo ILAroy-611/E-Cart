@@ -1,0 +1,22 @@
+.cart-outer-container{
+    max-width:96%;
+    margin:0 auto;
+    padding:2rem 1rem;
+    /* border: 1px solid black; */
+}
+.cart-heading{
+    font-size: 3rem;
+    text-align: justify;
+    padding: 2rem 0;
+}
+.cart-inner-container{
+    justify-content: space-between;
+}
+.cart-detail-container{
+    width:65%;
+    
+}
+
+.cart-subtotal-container{
+    width:30%;
+}

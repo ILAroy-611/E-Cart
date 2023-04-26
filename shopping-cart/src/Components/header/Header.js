@@ -1,16 +1,21 @@
 import { NavLink } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
-// import { useEffect, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { adminItems, items } from "./dropdownMenuItems";
-import "./header.css";
 import SCDropdown from "../dropdown/SCDropdown";
 import { TextButton } from "../button";
+import useProducts from "../../Hooks/useProducts";
+import { useContext } from "react";
+import counterContext from "../../Hooks/Context";
+import "./header.css";
 
 function Header() {
   const { logout, user } = useAuth();
+  const{cart} = useProducts();
+  const {counter} = useContext(counterContext)
   // console.log("user in header", user)
+  console.log(cart)
   return (
     <header className="cart-primary-header flex">
       <div className="logo ">
@@ -60,7 +65,7 @@ function Header() {
             />
             <li>
               {" "}
-              <BsCart3 className="cart-icon" />{" "}
+              {counter}<BsCart3 className="cart-icon" />{" "}
             </li>
             </>}
             {/* <li>Hi {JSON.parse(localStorage.getItem("user")).username.split(" ")[0]}</li> */}

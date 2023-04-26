@@ -12,7 +12,7 @@
 }
 
  input{
-    width:100%;
+    max-width:100%;
     outline:none;
     margin:0 2rem;
     border-radius: 0.5rem;

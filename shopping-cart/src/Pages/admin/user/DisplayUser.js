@@ -6,8 +6,9 @@ import { useFormik } from "formik";
 import { FaSearch } from "react-icons/fa";
 import SCPagination from "../../../Components/pagination/SCPagination";
 import { UserCard } from "../../../Components/card";
+import SCDropdown from "../../../Components/dropdown/SCDropdown";
 import "./displayuser.css";
-
+import { searchItems } from "./helper";
 
 function DisplayUser() {
   const { fetchAllUsers } = useAdminPriv();
@@ -39,22 +40,23 @@ function DisplayUser() {
     handleSetCurrentUsers(offset);
   };
 
-  const searchUser =(userList, searchWord)=>{
-    console.log(userList,searchWord)
-    if(searchWord!=""){
-      const filteredArray= userList.filter(ele=>Object.values(ele).includes(searchWord))
+  const searchUser = (userList, searchWord) => {
+    console.log(userList, searchWord);
+    if (searchWord != "") {
+      // const filteredArray= userList.filter(ele=>Object.values(ele).includes(searchWord))
+      // console.log(userList[3]?.username.split(" "))
+      const filteredArray = userList.filter((ele) => ele?.email === searchWord);
       return filteredArray;
-    }
-    else{
-      return userList
+    } else {
+      return userList;
     }
   };
 
-  const handleSearchUser=(userList, searchWord)=>{
+  const handleSearchUser = (userList, searchWord) => {
     const response = searchUser(userList, searchWord);
-    console.log('in search',response)
-    setPaginationInfo({...paginationInfo, currentPageUsers: response})
-  }
+    console.log("in search", response);
+    setPaginationInfo({ ...paginationInfo, currentPageUsers: response });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -70,43 +72,55 @@ function DisplayUser() {
         const { total, userList } = await fetchAllUsers();
         // filetredArray= filetring()
         const response = searchUser(userList, formik.values.searchWord);
-        console.log('is effect',response)
+        // console.log('is effect',response)
         setLoading(false);
         setPaginationInfo({
           ...paginationInfo,
           totalUsers: total,
           usersArray: response,
           totalNumberofPages: Math.ceil(total / paginationInfo.usersPerPage),
-          currentPageUsers:response.slice(0,paginationInfo.usersPerPage)
+          currentPageUsers: response.slice(0, paginationInfo.usersPerPage),
         });
-        
       } catch (error) {
         console.log(error);
       }
     }
     getAllUsers();
   }, []);
-//   console.log(paginationInfo, loading);
+  //   console.log(paginationInfo, loading);
   return (
     <>
       {loading ? (
         <Skeleton />
       ) : (
         <div className="display-user-container">
-          <div className="flex">
+          <div className="flex user-search-bar-flex">
+            <SCDropdown
+              placement="bottom"
+              items={searchItems}
+              mainEle={<div className="search-filter">Search By</div>}
+            />
             <SCInput
               type="search"
               name="searchWord"
-              placeholder="Search user here"
+              placeholder="Search user by email"
               formik={formik}
               id="search"
             />
-            <FaSearch className="cart-search-icon" onClick={()=>handleSearchUser(paginationInfo.usersArray,formik.values.searchWord)}/>
+            <FaSearch
+              className="cart-search-icon"
+              onClick={() =>
+                handleSearchUser(
+                  paginationInfo.usersArray,
+                  formik.values.searchWord
+                )
+              }
+            />
           </div>
           <div className="users-display-grid flex">
-          {paginationInfo.currentPageUsers.map(ele=>{
-            return(<UserCard userDetail={ele} key={ele._id}/>)
-          })}
+            {paginationInfo.currentPageUsers.map((ele) => {
+              return <UserCard userDetail={ele} key={ele._id} />;
+            })}
           </div>
           {paginationInfo.totalNumberofPages > 1 && (
             <SCPagination

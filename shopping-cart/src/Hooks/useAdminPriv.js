@@ -103,6 +103,7 @@ function useAdminPriv() {
   //to block a user-
   async function blockUsers(userID) {
     // console.log(userID)
+    let userBlocked=false;
     let body = {
       user: {
         id: userID,
@@ -118,13 +119,16 @@ function useAdminPriv() {
           },
         }
       );
+      userBlocked=true;
       // console.log(response);
     } catch (error) {
       console.log(error);
     }
+    return userBlocked
   }
   async function unblockUsers(userID) {
     // console.log(userID)
+    let userUnBlocked = false
     let body = {
       user: {
         id: userID,
@@ -141,9 +145,11 @@ function useAdminPriv() {
         }
       );
       // console.log(response);
+      userUnBlocked=true;
     } catch (error) {
       console.log(error);
     }
+    return userUnBlocked
   }
 
 

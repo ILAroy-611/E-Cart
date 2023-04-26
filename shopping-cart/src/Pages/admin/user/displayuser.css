@@ -10,3 +10,32 @@
 .users-display-grid{
  flex-wrap: wrap;
 }
+
+.search-filter{
+    color:goldenrod;
+    max-width:12rem;
+    font-weight: 500;
+    font-size: 1.8rem;
+    padding:0 1rem ;
+    text-align: center;
+}
+
+.user-search-bar-flex{
+    gap:0rem !important;
+    background-color: black;
+    max-width: 95%;
+    border-radius: 3rem;
+}
+
+.user-search-bar-flex input{
+    max-width:75% !important;
+}
+
+.user-search-bar-flex label{
+    margin:0rem !important;
+    padding:0rem !important;
+}
+
+.cart-search-icon{
+    display: inline-block;
+}
