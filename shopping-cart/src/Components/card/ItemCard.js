@@ -15,8 +15,8 @@ function ItemCard({ itemDetail }) {
 
 const {deleteItem}= useAdminPriv();
 const {user} = useAuth();
-const {addItemtoCart} = useProducts();
-const {counter, increment, decrement } = useContext(counterContext)
+const {addItemtoCart, getItemsFromCart } = useProducts();
+const {counter, increment } = useContext(counterContext)
 
 const handleDeleteItem= async()=>{
   let isItemDeleted= await deleteItem(itemDetail._id)

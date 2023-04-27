@@ -1,9 +1,10 @@
 import { useState } from "react";
 import instance from "../Store/AxiosInstance";
 
+
 function useProducts() {
   const [products, setProducts] = useState();
-  const [cart, setCart]= useState([])
+  const [cart, setCart]= useState([]);
 
   //to get all items-
   async function fetchAllProducts() {
@@ -45,9 +46,10 @@ async function getItemsFromCart(){
                 Authorization:`${localStorage.getItem('token')}`
             }
         })
-        // console.log('hi we are in cart',response.data.cart.product);
+        console.log('hi we are in cart',response.data.cart.product);
         success=true;
-        setCart([...response.data.cart.product])
+        setCart([...response.data.cart.product]);
+        // setCounter(cart.length);
     } catch (error) {
         console.log(error);
     }
@@ -67,8 +69,9 @@ async function removeItemsFromCart(removeItemId){
         Authorization:`${localStorage.getItem('token')}`
       },
       data: JSON.stringify(body),
-    })
+    });
     console.log(response);
+    // getItemsFromCart()
     removed=true;
   } catch (error) {
     console.log(error);

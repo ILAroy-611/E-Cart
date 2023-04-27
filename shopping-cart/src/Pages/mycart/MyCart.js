@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useProducts from "../../Hooks/useProducts";
 import { CartItem } from "../../Components/card";
 import SubTotalCard from "../../Components/subTotalCard/SubTotalCard";
 import "./mycart.css";
+import counterContext from "../../Hooks/Context";
 
 function MyCart() {
   const { getItemsFromCart, cart } = useProducts();
+  const {counter} = useContext(counterContext)
 
   useEffect(() => {
     // console.log('step-1');
@@ -17,7 +19,7 @@ function MyCart() {
       }
     }
     handleGetCartItems();
-  }, []);
+  }, [counter]);
 
   return (
     <>

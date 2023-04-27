@@ -2,22 +2,28 @@ import { Card } from "antd";
 import ActionButton from "../../button/ActionButton";
 import useProducts from "../../../Hooks/useProducts";
 import './cartitem.css';
+import { useContext } from "react";
+import counterContext from "../../../Hooks/Context";
 
 function CartItem({ item }) {
 
-  const{removeItemsFromCart}= useProducts();
+  const{removeItemsFromCart, getItemsFromCart }= useProducts();
+  const {decrement} = useContext(counterContext)
 
   const handleRemoveItemfromCart=async ()=>{
     try {
       const response =await removeItemsFromCart(item._id)
       if(response){
         alert(`${item.name} removed successfully`);
-        window.location.reload()
+        await getItemsFromCart();
+        decrement();
+        // window.location.reload()
       }
     } catch (error) {
       console.log(error);
     }
   }
+  
   return (
     <div className="cart-item-container">
       <Card bordered={true} hoverable >

@@ -6,16 +6,31 @@ import { adminItems, items } from "./dropdownMenuItems";
 import SCDropdown from "../dropdown/SCDropdown";
 import { TextButton } from "../button";
 import useProducts from "../../Hooks/useProducts";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import counterContext from "../../Hooks/Context";
 import "./header.css";
 
 function Header() {
   const { logout, user } = useAuth();
-  const{cart} = useProducts();
-  const {counter} = useContext(counterContext)
-  // console.log("user in header", user)
-  console.log(cart)
+  const{cart, getItemsFromCart} = useProducts();
+  const {counter, setCounter} = useContext(counterContext)
+
+  useEffect(()=>{
+    async function handleSetCounter(){
+      try {
+        let success =await getItemsFromCart();
+        console.log('in header')
+        if(success){
+          setCounter(prevCounter=>cart.length) ;
+          console.log('after set in context');
+      }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    handleSetCounter()
+  },[cart.length]);
+
   return (
     <header className="cart-primary-header flex">
       <div className="logo ">

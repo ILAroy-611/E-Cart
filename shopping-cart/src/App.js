@@ -12,14 +12,16 @@ import DisplayUser from "./Pages/admin/user/DisplayUser";
 import useAuth from "./Hooks/useAuth";
 import AdminHome from "./Pages/admin/adminHome/AdminHome";
 import MyCart from "./Pages/mycart/MyCart";
+import { useContext, useEffect } from "react";
+import useProducts from "./Hooks/useProducts";
+import counterContext from "./Hooks/Context";
 import "./App.css";
 
 
 function App() {
   const { user } = useAuth();
-  // console.log("user in app", user);
+
   return (
-    
       <div className="App">
         <Header />
         <Routes>
@@ -41,7 +43,6 @@ function App() {
           <Route path="/cart" element={<MyCart />}></Route>
         </Routes>
       </div>
-   
   );
 }
 
