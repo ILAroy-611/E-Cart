@@ -12,24 +12,24 @@ import "./header.css";
 
 function Header() {
   const { logout, user } = useAuth();
-  const{cart, getItemsFromCart} = useProducts();
-  const {counter, setCounter} = useContext(counterContext)
+  const { cart, getItemsFromCart } = useProducts();
+  const { counter, setCounter } = useContext(counterContext);
 
-  useEffect(()=>{
-    async function handleSetCounter(){
+  useEffect(() => {
+    async function handleSetCounter() {
       try {
-        let success =await getItemsFromCart();
-        console.log('in header')
-        if(success){
-          setCounter(prevCounter=>cart.length) ;
-          console.log('after set in context');
-      }
+        let success = await getItemsFromCart();
+        console.log("in header");
+        if (success) {
+          setCounter((prevCounter) => cart.length);
+          console.log("after set in context");
+        }
       } catch (error) {
         console.log(error);
       }
     }
-    handleSetCounter()
-  },[cart.length]);
+    handleSetCounter();
+  }, [cart.length]);
 
   return (
     <header className="cart-primary-header flex">
@@ -51,45 +51,34 @@ function Header() {
       {localStorage.getItem("token") ? (
         <nav className="cart-primary-navbar">
           <ul className="flex">
-            {user.isAdmin?
-            <SCDropdown
-            placement="bottom"
-            items={adminItems}
-            mainEle={
-              <li>
-                Hi{" "}
-                {
-                  user.username
-                }*
-              </li>
-            }
-          />
-            :
-            <>
-            <SCDropdown
-              placement="bottom"
-              items={items}
-              mainEle={
+            {user.isAdmin ? (
+              <SCDropdown
+                placement="bottom"
+                items={adminItems}
+                mainEle={<li>Hi {user.username}*</li>}
+              />
+            ) : (
+              <>
+                <SCDropdown
+                  placement="bottom"
+                  items={items}
+                  mainEle={<li>Hi {user.username}</li>}
+                />
                 <li>
-                  Hi{" "}
-                  {
-                    user.username
-                  }
+                  {" "}
+                  <NavLink to="/cart" className={'link'}>
+                    <h2>{counter}</h2>
+                    <BsCart3 className="cart-icon" />{" "}
+                  </NavLink>
                 </li>
-              }
-            />
-            <li>
-              {" "}
-              {counter}<BsCart3 className="cart-icon" />{" "}
-            </li>
-            </>}
+              </>
+            )}
             {/* <li>Hi {JSON.parse(localStorage.getItem("user")).username.split(" ")[0]}</li> */}
-            
+
             <li>
               {" "}
               <TextButton Action="Logout" onCLick={logout} />{" "}
             </li>
-            
           </ul>
         </nav>
       ) : (

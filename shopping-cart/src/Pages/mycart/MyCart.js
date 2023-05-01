@@ -7,7 +7,8 @@ import counterContext from "../../Hooks/Context";
 
 function MyCart() {
   const { getItemsFromCart, cart } = useProducts();
-  const {counter} = useContext(counterContext)
+  const { counter } = useContext(counterContext);
+  let totalPrice = 0;
 
   useEffect(() => {
     // console.log('step-1');
@@ -21,6 +22,13 @@ function MyCart() {
     handleGetCartItems();
   }, [counter]);
 
+  function roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
+  }
+
+  totalPrice = cart.reduce((total,item)=>total+item.price*(1-item?.discount*0.001),0);
+  totalPrice = roundToTwo(totalPrice);
+  // console.log(totalPrice);
   return (
     <>
       {cart ? (
@@ -35,7 +43,7 @@ function MyCart() {
             </div>
             <div className="cart-subtotal-container">
               <SubTotalCard
-                cart_total={"25000"}
+                cart_total={`${totalPrice}`}
                 total_item_in_cart={`${cart.length}`}
               />
             </div>

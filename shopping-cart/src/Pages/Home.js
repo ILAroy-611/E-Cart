@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { DisplayItems } from './admin/item'
 import useProducts from '../Hooks/useProducts'
 import ItemCard from '../Components/card/ItemCard';
-
+import './home.css'
 
 
 export default function Home() {
@@ -24,7 +24,6 @@ export default function Home() {
 
   return (
     <div>
-      Home
       {/* {console.log('products, ', products)} */}
       <div className="item-container flex-wrap">
       {products?.map(item=><ItemCard itemDetail={item} key={item._id}/>)}
