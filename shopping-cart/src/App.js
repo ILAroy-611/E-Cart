@@ -16,10 +16,12 @@ import { useContext, useEffect } from "react";
 import useProducts from "./Hooks/useProducts";
 import counterContext from "./Hooks/Context";
 import "./App.css";
+import DisplayFavList from "./Pages/favorite/DisplayFavList";
 
 
 function App() {
   const { user } = useAuth();
+  
 
   return (
       <div className="App">
@@ -41,6 +43,7 @@ function App() {
           <Route path="/admin/items" element={<DisplayItems />}></Route>
           <Route path="/admin/allUsers" element={<DisplayUser />}></Route>
           <Route path="/cart" element={<MyCart />}></Route>
+          <Route path="/favList" element={<DisplayFavList />}></Route>
         </Routes>
       </div>
   );

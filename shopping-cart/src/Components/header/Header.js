@@ -19,10 +19,10 @@ function Header() {
     async function handleSetCounter() {
       try {
         let success = await getItemsFromCart();
-        console.log("in header");
+        // console.log("in header");
         if (success) {
           setCounter((prevCounter) => cart.length);
-          console.log("after set in context");
+          // console.log("after set in context");
         }
       } catch (error) {
         console.log(error);

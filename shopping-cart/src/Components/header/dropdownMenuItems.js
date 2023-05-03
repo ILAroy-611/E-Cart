@@ -11,7 +11,7 @@ export const items = [
   },
   {
     key: "3",
-    label: <NavLink to="/favorites">My Favorites</NavLink>,
+    label: <NavLink to="/favList">My Favorites</NavLink>,
   },
   {
     key: "4",

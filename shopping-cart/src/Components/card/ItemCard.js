@@ -4,8 +4,9 @@ import ActionButton from "../button/ActionButton";
 import useAdminPriv from "../../Hooks/useAdminPriv";
 import useAuth from "../../Hooks/useAuth";
 import useProducts from "../../Hooks/useProducts";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import counterContext from "../../Hooks/Context";
+import { AiOutlineHeart } from "react-icons/ai";
 import "./itemcard.css";
 
 const { Meta } = Card;
@@ -15,8 +16,10 @@ function ItemCard({ itemDetail }) {
 
 const {deleteItem}= useAdminPriv();
 const {user} = useAuth();
-const {addItemtoCart, getItemsFromCart } = useProducts();
-const {counter, increment } = useContext(counterContext)
+const {addItemtoCart, getItemsFromCart, addItemtoFavList } = useProducts();
+const {counter, increment } = useContext(counterContext);
+const [addedStatus, setAddedStatus]= useState(false);
+
 
 const handleDeleteItem= async()=>{
   let isItemDeleted= await deleteItem(itemDetail._id)
@@ -27,8 +30,20 @@ const handleDeleteItem= async()=>{
 
 const handleAddItemtoCart= async()=>{
   try {
-    let itemAddedtoCart = await addItemtoCart(itemDetail._id)
-    if(itemAddedtoCart)increment();
+    setAddedStatus(true);
+    let itemAddedtoCart = await addItemtoCart(itemDetail._id);
+    if(itemAddedtoCart){
+      setAddedStatus(false);
+      increment();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const handleAddtoFav=async()=>{
+  try {
+    const favorited= await addItemtoFavList(itemDetail._id);
   } catch (error) {
     console.log(error);
   }
@@ -66,7 +81,8 @@ const handleAddItemtoCart= async()=>{
         <ActionButton Action="Delete" onCLick={handleDeleteItem}/></>
           :
           <>
-          <ActionButton Action="Add to Cart" onCLick={handleAddItemtoCart}/>
+          <ActionButton Action={addedStatus ?  "Added" : "Add to Cart"} onCLick={handleAddItemtoCart}/>
+          <ActionButton Action={<AiOutlineHeart/>} onCLick={handleAddtoFav}/>
           </>
         }
         
