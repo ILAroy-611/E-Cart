@@ -6,26 +6,27 @@ import "./fav.css";
 import counterContext from "../../../Hooks/Context";
 
 function FavoriteCard({ item }) {
-  const { removeItemFromFavList, fetchFavList } = useProducts();
-  const { setFavList, favList } = useContext(counterContext);
+  const { removeItemFromFavList, fetchFavList, addItemtoCart } = useProducts();
+  const { setFavList, favList, increment } = useContext(counterContext);
 
   async function handleRemoveItemfromFavList() {
-    // console.log('in handleRemoveItemfromFavList() func');
     try {
       let favItemRemoved = await removeItemFromFavList(item._id);
       if (favItemRemoved) {
         let response = await fetchFavList();
-        // setFavCounter(favList?.fav?.length ?? 0 );
         setFavList({ ...response.data.allFav });
-        // console.log('success and fetched again');
       }
     } catch (error) {
       console.log(error);
     }
   }
-  // console.log('child',favCounter);
+  
   async function handleMoveFavItemtoCart() {
     try {
+      await addItemtoCart(item._id);
+      await handleRemoveItemfromFavList();
+      increment();
+
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +34,6 @@ function FavoriteCard({ item }) {
 
   return (
     <div>
-      {/* {console.log('in child of displayFavList')} */}
       {/* <Skeleton loading={favItemRemoved} > */}
       <Card bordered={true} hoverable>
         <div className="cart-item-details flex">
