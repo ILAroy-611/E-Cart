@@ -1,8 +1,9 @@
-import './scinput.css';
+import "./scinput.css";
 
-export default function SCInput({formik, name, type, placeholder, label, id}) {
-    let field = formik.touched[name]
-    let errors= formik.errors[name]
+export default function SCInput({ formik, option }) {
+  const { name, type, placeholder, label, id } = option;
+  let field = formik.touched[name];
+  let errors = formik.errors[name];
 
   return (
     <>
@@ -16,11 +17,7 @@ export default function SCInput({formik, name, type, placeholder, label, id}) {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
       />
-      <p>
-        {field &&  errors ? (
-          <>{errors}</>
-        ) : null}
-      </p>
+      <p>{field && errors ? <>{errors}</> : null}</p>
     </>
   );
 }

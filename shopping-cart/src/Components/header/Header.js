@@ -11,9 +11,11 @@ import counterContext from "../../Hooks/Context";
 import "./header.css";
 
 function Header() {
-  const { logout, user } = useAuth();
+  // const { logout, user } = useAuth();
+  const { logout } = useAuth();
+
   const { cart, getItemsFromCart } = useProducts();
-  const { counter, setCounter } = useContext(counterContext);
+  const { counter, setCounter, user } = useContext(counterContext);
 
   useEffect(() => {
     async function handleSetCounter() {

@@ -26,7 +26,6 @@ function FavoriteCard({ item }) {
       await addItemtoCart(item._id);
       await handleRemoveItemfromFavList();
       increment();
-
     } catch (error) {
       console.log(error);
     }

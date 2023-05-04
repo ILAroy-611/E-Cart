@@ -21,6 +21,10 @@
   gap:1rem;
 }
 
+.flex-justify{
+  justify-content: space-between;
+}
+
 .flex-wrap{
   display:flex;
   /* align-items: center; */
@@ -38,6 +42,30 @@
 .form-container{
   max-width:45%;
   margin:2rem auto;
+}
+
+.small-form-container{
+  max-width:40%;
+  margin:4rem auto;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid grey;
+  border-radius: 3rem;;
+  padding:1rem 2rem;
+  text-align: justify;
+}
+
+.legend{
+  font-size: 4rem;
+  color:goldenrod;
+  margin: 2rem 0;
+  width:100%;
+  /* border: 1px solid black; */
+  background-color: black;
+  padding: 1rem ;
+  border-radius: 2rem;;
 }
 
 /* App styling */

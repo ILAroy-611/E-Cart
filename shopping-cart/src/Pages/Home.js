@@ -7,7 +7,7 @@ import './home.css'
 
 export default function Home() {
 
-  const {fetchAllProducts, products, getItemsFromCart} = useProducts();
+  const {fetchAllProducts, products} = useProducts();
   
 
   useEffect(()=>{

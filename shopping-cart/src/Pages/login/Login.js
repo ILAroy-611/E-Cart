@@ -4,12 +4,16 @@ import SCInput from "../../Components/sc-input";
 import PrimaryButton from "../../Components/button/PrimaryButton";
 import useAuth from "../../Hooks/useAuth";
 import { validationSchema } from "./Validation";
+import { loginOption } from "./helper";
 import "./login.css";
-
+import { useContext } from "react";
+import counterContext from "../../Hooks/Context";
 
 function Login() {
-  const { loginUser } = useAuth();
-  const navigate= useNavigate();
+  // const { loginUser } = useAuth();
+  const { authorizeUser } = useAuth();
+  const navigate = useNavigate();
+  const { setUser } = useContext(counterContext);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,13 +22,19 @@ function Login() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        let isUserLoggedIn = await loginUser({
-          email: values.email,
-          password: values.password,
+        let response = await authorizeUser({
+          body: {
+            user: {
+              email: values.email,
+              password: values.password,
+            },
+          },
+          url: `users/login`,
         });
-        if (isUserLoggedIn) {
-          navigate('/')
-          window.location.reload();
+        if (response?.data?.user) {
+          setUser({ ...response.data.user });
+          navigate("/");
+          // window.location.reload();
         }
       } catch (error) {
         console.error(error);
@@ -32,33 +42,22 @@ function Login() {
     },
   });
   return (
-    <form>
-      <fieldset className="cart-login-container">
-        <legend>Login</legend>
-        <SCInput
-          label="Email Address: "
-          type="email"
-          name="email"
-          id="cart-login-email"
-          placeholder="Enter email"
-          formik={formik}
-        />
-        <SCInput
-          label="Password: "
-          type="password"
-          name="password"
-          id="cart-login-password"
-          placeholder="Enter password"
-          formik={formik}
-        />
+    <form className="small-form-container">
+      <fieldset>
+        <legend className="legend">Login</legend>
+        {loginOption.map((option) => (
+          <SCInput option={option} formik={formik} />
+        ))}
       </fieldset>
-      <PrimaryButton Action="Login" onCLick={formik.handleSubmit} />
-      <p className="register-link-p">
-        Don't have an Account?{" "}
-        <NavLink to="/register" className="link register-link">
-          Register
-        </NavLink>{" "}
-      </p>
+      <fieldset className="flex flex-justify">
+        <PrimaryButton Action="Login" onCLick={formik.handleSubmit} />
+        <p className="register-link-p">
+          Don't have an Account?{" "}
+          <NavLink to="/register" className="link register-link">
+            Register
+          </NavLink>{" "}
+        </p>
+      </fieldset>
     </form>
   );
 }
