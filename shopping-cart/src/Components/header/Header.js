@@ -13,25 +13,40 @@ import "./header.css";
 function Header() {
   // const { logout, user } = useAuth();
   const { logout } = useAuth();
+  // const {  getItemsFromCart,  } = useProducts();
+  const {  getItemsFromCartOrWishList  } = useProducts();
+  const { user, setCartInfo, cartInfo  } = useContext(counterContext);
 
-  const { cart, getItemsFromCart } = useProducts();
-  const { counter, setCounter, user } = useContext(counterContext);
-
-  useEffect(() => {
-    async function handleSetCounter() {
-      try {
-        let success = await getItemsFromCart();
-        // console.log("in header");
-        if (success) {
-          setCounter((prevCounter) => cart.length);
-          // console.log("after set in context");
-        }
-      } catch (error) {
-        console.log(error);
-      }
+  async function handleSetCartCounter(){
+    try {
+      const response = await getItemsFromCartOrWishList({
+        url:`user/cart`,
+      });
+      await setCartInfo({...cartInfo, cart:response.data.cart.product, counter:response.data.cart.product.length});
+    } catch (error) {
+      console.log('handleSetCounter error ',error);
     }
-    handleSetCounter();
-  }, [cart.length]);
+  }
+  useEffect(()=>{
+    handleSetCartCounter();
+  },[cartInfo.counter]);
+
+
+  // useEffect(() => {
+  //   async function console.log(error);() {
+  //     try {
+  //       // let success = await getItemsFromCart();
+  //       // console.log("in header");
+  //       // if (success) {
+  //       //   setCounter((prevCounter) => cart.length);
+  //       //   // console.log("after set in context");
+  //       // }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   handleSetCounter();
+  // }, [cart.length]);
 
   return (
     <header className="cart-primary-header flex">
@@ -69,7 +84,7 @@ function Header() {
                 <li>
                   {" "}
                   <NavLink to="/cart" className={'link'}>
-                    <h2>{counter}</h2>
+                    <h2>{cartInfo?.counter}</h2>
                     <BsCart3 className="cart-icon" />{" "}
                   </NavLink>
                 </li>

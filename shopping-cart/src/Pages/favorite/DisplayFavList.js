@@ -5,15 +5,17 @@ import counterContext from "../../Hooks/Context";
 import "./favlist.css";
 
 function DisplayFavList() {
-  const { fetchFavList } = useProducts();
+  const { getItemsFromCartOrWishList } = useProducts();
   const { favList, setFavList } = useContext(counterContext);
 
   async function handleFetchFavList() {
     // console.log("in useEffect of displayFavList");
     try {
-      let response = await fetchFavList();
+      let response = await getItemsFromCartOrWishList({
+        url: `user/fav`,
+      });
       //   console.log("fetching done");
-      setFavList({ ...response.data.allFav });
+      if (response.data.allFav.fav) setFavList([...response.data.allFav.fav]);
     } catch (error) {
       console.log(error);
     }
@@ -25,12 +27,12 @@ function DisplayFavList() {
 
   //   console.log("parent", favList?.fav);
   return (
-    <div className="favList-container">
-      {favList?.fav?.length ? (
+    <div className="sm-display-container">
+      {favList.length>=1 ? (
         <>
           {console.log("in favList parent")}
           <h2>My WishList</h2>
-          {favList?.fav?.map((favItem) => (
+          {favList.map((favItem) => (
             <FavCard item={favItem} />
           ))}
         </>

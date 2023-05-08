@@ -4,7 +4,6 @@
 
 /* common styles */
 .btn{
-  
   display:inline-block;
   /* font-size: 2rem; */
 }
@@ -44,9 +43,8 @@
   margin:2rem auto;
 }
 
-.small-form-container{
-  max-width:40%;
-  margin:4rem auto;
+.small-form-container, .medium-form-container{
+  
   position: absolute;
   top:50%;
   left:50%;
@@ -55,6 +53,33 @@
   border-radius: 3rem;;
   padding:1rem 2rem;
   text-align: justify;
+}
+.small-form-container{
+  max-width:40%;
+  margin:4rem auto;
+}
+
+.medium-form-container{
+  max-width:65%;
+  margin:20rem auto;
+}
+
+.sm-display-container, .medium-display-container{
+  margin:4rem auto;
+  padding:1rem;
+}
+.sm-display-container{
+  max-width:70%;
+}
+
+.medium-display-container{
+  max-width:90%;
+}
+
+.large-display-container{
+  max-width:96%;
+  margin:2rem auto;
+  padding:2rem 1rem;
 }
 
 .legend{
@@ -67,6 +92,10 @@
   padding: 1rem ;
   border-radius: 2rem;;
 }
+
+/* .block-display{
+  display:block;
+} */
 
 /* App styling */
 .App {

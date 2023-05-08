@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
+import Home from "./Pages/home/Home";
 import Login from "./Pages/login/Login";
 import Register from "./Pages/register/Register";
 import Header from "./Components/header/Header";
@@ -9,18 +9,18 @@ import { DisplayAddress, EditAddress } from "./Pages/address";
 import AddAddress from "./Pages/address/AddAddress";
 import { AddItem, DisplayItems } from "./Pages/admin/item";
 import DisplayUser from "./Pages/admin/user/DisplayUser";
-import useAuth from "./Hooks/useAuth";
 import AdminHome from "./Pages/admin/adminHome/AdminHome";
 import MyCart from "./Pages/mycart/MyCart";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import useProducts from "./Hooks/useProducts";
 import counterContext from "./Hooks/Context";
-import "./App.css";
 import DisplayFavList from "./Pages/favorite/DisplayFavList";
+import "./App.css";
+
 
 
 function App() {
-  const { user } = useAuth();
+  const { user } = useContext(counterContext);
   
 
   return (
@@ -37,8 +37,8 @@ function App() {
           <Route path="/profile" element={<UserProfile />}></Route>
           <Route path="/edit-profile" element={<EditProfile />}></Route>
           <Route exact path="/address" element={<DisplayAddress />}></Route>
-          <Route path="/address/add" element={<AddAddress />}></Route>
-          <Route path="/address/edit" element={<EditAddress />}></Route>
+          <Route path="/address/:mode" element={<AddAddress />}></Route>
+          {/* <Route path="/address/" element={<EditAddress />}></Route> */}
           <Route exact path="/admin/item/:mode" element={<AddItem />}></Route>
           <Route path="/admin/items" element={<DisplayItems />}></Route>
           <Route path="/admin/allUsers" element={<DisplayUser />}></Route>

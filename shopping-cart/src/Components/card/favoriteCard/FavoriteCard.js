@@ -2,28 +2,47 @@ import { useContext, useEffect, useState } from "react";
 import { Card, Skeleton } from "antd";
 import ActionButton from "../../button/ActionButton";
 import useProducts from "../../../Hooks/useProducts";
-import "./fav.css";
 import counterContext from "../../../Hooks/Context";
+import "./fav.css";
 
 function FavoriteCard({ item }) {
-  const { removeItemFromFavList, fetchFavList, addItemtoCart } = useProducts();
+
+  const {
+    removeItemsFromCartOrWishList,
+    getItemsFromCartOrWishList,
+    addItemsinCartOrWishList,
+  } = useProducts();
+
   const { setFavList, favList, increment } = useContext(counterContext);
 
   async function handleRemoveItemfromFavList() {
     try {
-      let favItemRemoved = await removeItemFromFavList(item._id);
+      let favItemRemoved = await removeItemsFromCartOrWishList({
+        body: {
+          itemId: item._id,
+        },
+        url: `user/fav`,
+      });
+      console.log(favItemRemoved);
       if (favItemRemoved) {
-        let response = await fetchFavList();
-        setFavList({ ...response.data.allFav });
+        let response = await getItemsFromCartOrWishList({ url: `user/fav` });
+        setFavList([...response.data.allFav.fav]);
       }
     } catch (error) {
       console.log(error);
     }
   }
-  
+
   async function handleMoveFavItemtoCart() {
     try {
-      await addItemtoCart(item._id);
+      await addItemsinCartOrWishList({
+        body: {
+          product: {
+            id: item._id,
+          },
+        },
+        url: `user/cart`,
+      });
       await handleRemoveItemfromFavList();
       increment();
     } catch (error) {
@@ -41,7 +60,7 @@ function FavoriteCard({ item }) {
             alt="itemImg"
             height="140"
             width="140"
-            className="flex-item"
+            // className="flex-item"
           />
           <div className="item-description flex-item">
             <h4>{item?.name}</h4>

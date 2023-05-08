@@ -12,7 +12,7 @@ export default function SCInput({ formik, option }) {
         type={type}
         name={name}
         id={id}
-        placeholder={placeholder}
+        placeholder={placeholder ?? ''}
         value={formik.values[name]}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}

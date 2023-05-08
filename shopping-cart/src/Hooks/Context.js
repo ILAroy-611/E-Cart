@@ -4,30 +4,35 @@ import useProducts from "./useProducts";
 const counterContext = createContext();
 
 export const CounterCntxtProvider = ({ children }) => {
-  const { cart } = useProducts();
+  // const { cart } = useProducts();
+  
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
-  const [counter, setCounter] = useState(cart.length);
-  const [favList, setFavList] = useState();
+  const [products, setProducts] = useState([]);
+  const [cartInfo, setCartInfo] = useState({cart:[],counter:0});
+  // const [counter, setCounter] = useState(cart?.length ?? 0);
+  const [favList, setFavList] = useState([]);
 
   const increment = () => {
-    setCounter(counter + 1);
+    setCartInfo({...cartInfo, counter:cartInfo.counter + 1});
   };
 
   const decrement = () => {
-    setCounter(counter - 1);
+    setCartInfo({...cartInfo, counter:cartInfo.counter - 1});
   };
 
   return (
     <counterContext.Provider
       value={{
-        counter,
         increment,
         decrement,
-        setCounter,
         favList,
         setFavList,
         user,
         setUser,
+        products, 
+        setProducts,
+        cartInfo,
+        setCartInfo,
       }}
     >
       {children}

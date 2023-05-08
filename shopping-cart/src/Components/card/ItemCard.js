@@ -12,42 +12,53 @@ import "./itemcard.css";
 const { Meta } = Card;
 
 function ItemCard({ itemDetail }) {
-// console.log(itemDetail);
+  // console.log(itemDetail);
 
-const {deleteItem}= useAdminPriv();
-const {user} = useAuth();
-const {addItemtoCart, getItemsFromCart, addItemtoFavList } = useProducts();
-const {counter, increment } = useContext(counterContext);
-const [addedStatus, setAddedStatus]= useState(false);
+  const { deleteItem } = useAdminPriv();
+  // const {} = useAuth();
+  const { addItemsinCartOrWishList } = useProducts();
+  const { counter, increment, user, setFavList } = useContext(counterContext);
+  const [addedStatus, setAddedStatus] = useState(false);
 
-
-const handleDeleteItem= async()=>{
-  let isItemDeleted= await deleteItem(itemDetail._id)
-  if(isItemDeleted){
-    window.location.reload();
-  }
-}
-
-const handleAddItemtoCart= async()=>{
-  try {
-    setAddedStatus(true);
-    let itemAddedtoCart = await addItemtoCart(itemDetail._id);
-    if(itemAddedtoCart){
-      setAddedStatus(false);
-      increment();
+  const handleDeleteItem = async () => {
+    let isItemDeleted = await deleteItem(itemDetail._id);
+    if (isItemDeleted) {
+      window.location.reload();
     }
-  } catch (error) {
-    console.log(error);
-  }
-}
+  };
 
-const handleAddtoFav=async()=>{
-  try {
-    const favorited= await addItemtoFavList(itemDetail._id);
-  } catch (error) {
-    console.log(error);
+  const handleAddItemtoCart = async () => {
+    try {
+      setAddedStatus(true);
+      let response = await addItemsinCartOrWishList({
+        body: {
+          product: {
+            id: itemDetail._id,
+          },
+        },
+        url: `user/cart`,
+      });
+      if (response) {
+        setAddedStatus(false);
+        increment();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function handleAddtoFav() {
+    try {
+      let response = await addItemsinCartOrWishList({
+        body: {
+          itemId: itemDetail._id,
+        },
+        url: `user/fav`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
   return (
     <div>
@@ -56,7 +67,7 @@ const handleAddtoFav=async()=>{
         hoverable
         style={{
           width: 280,
-          border: '1px solid black',
+          border: "1px solid black",
         }}
         cover={<img alt="item" src={itemDetail?.image} height="300px" />}
       >
@@ -72,20 +83,25 @@ const handleAddtoFav=async()=>{
         <p>{itemDetail?.stars}</p>
         <p>&#8377;{itemDetail?.price}/- </p>
         <p>Discount:{itemDetail?.discount ?? 0}%</p>
-        {
-          user.isAdmin?
+        {user.isAdmin ? (
           <>
-          <Link to="/admin/item/edit" state= {itemDetail}>
-          <ActionButton Action="Edit" />
-        </Link>
-        <ActionButton Action="Delete" onCLick={handleDeleteItem}/></>
-          :
-          <>
-          <ActionButton Action={addedStatus ?  "Added" : "Add to Cart"} onCLick={handleAddItemtoCart}/>
-          <ActionButton Action={<AiOutlineHeart/>} onCLick={handleAddtoFav}/>
+            <Link to="/admin/item/edit" state={itemDetail}>
+              <ActionButton Action="Edit" />
+            </Link>
+            <ActionButton Action="Delete" onCLick={handleDeleteItem} />
           </>
-        }
-        
+        ) : (
+          <>
+            <ActionButton
+              Action={addedStatus ? "Added" : "Add to Cart"}
+              onCLick={handleAddItemtoCart}
+            />
+            <ActionButton
+              Action={<AiOutlineHeart />}
+              onCLick={handleAddtoFav}
+            />
+          </>
+        )}
       </Card>
     </div>
   );

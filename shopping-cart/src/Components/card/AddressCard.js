@@ -1,5 +1,5 @@
 import { Card, Space } from "antd";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TextButton } from "../button";
 import "./addressCard.css";
 
@@ -26,9 +26,9 @@ function AddressCard({address,onCLick, addressID}) {
             <p>Phone number: {address.mobNumber}</p>
             </div>
             <footer className="address-card-footer">
-              <NavLink to='/address/edit'>
+              <Link to='/address/edit' state={{address, addressID}}>
                 <TextButton Action="Edit" />
-              </NavLink>
+              </Link>
               <TextButton Action="Delete" onCLick={()=>onCLick(addressID)}/>
               {/* <TextButton Action="Set as Default" /> */}
             </footer>

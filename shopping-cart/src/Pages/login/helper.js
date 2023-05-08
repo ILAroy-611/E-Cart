@@ -14,3 +14,8 @@ export const loginOption = [
     placeholder: "Enter password",
   }
 ];
+
+export const initialValues={
+  email: "",
+  password: "",
+}

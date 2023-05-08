@@ -1,5 +1,6 @@
-.edit-profile-container{
-    max-width: 40%;
-    margin:0 auto;
-    display: block;
+.edit-profile-image{
+    border:2px solid goldenrod;
+    margin-left:35%;
+    margin-top:2rem;
+    margin-bottom:2rem;
 }

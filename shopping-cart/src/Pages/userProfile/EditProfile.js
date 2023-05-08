@@ -3,52 +3,67 @@ import { useFormik } from "formik";
 import PrimaryButton from "../../Components/button/PrimaryButton";
 import SCInput from "../../Components/sc-input/SCInput";
 import useAuth from "../../Hooks/useAuth";
-import './editprofile.css'
+import { profileOptions } from "./helper";
+import { useContext } from "react";
+import counterContext from "../../Hooks/Context";
+import { useNavigate } from "react-router-dom";
+import "./editprofile.css";
+
 
 function EditProfile() {
-    const {updateUserInfo, user} = useAuth();
-    const formik= useFormik({
-        initialValues:{
-            username:user.username,
-            email:user.email,
-            image:user.image,
-            // username:JSON.parse(localStorage.getItem("user")).username,
-        },
-        onSubmit:async (values)=>{
-            try{  
-                updateUserInfo({username:values.username, email: values.email, image:values.image})
-            }
-            catch(error){
-                console.error(error)
-            }
+
+  const { updateUserInfo } = useAuth();
+  const {user, setUser}= useContext(counterContext);
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      username: user.username,
+      email: user.email,
+      image: user.image,
+      // username:JSON.parse(localStorage.getItem("user")).username,
+    },
+    onSubmit: async (values) => {
+      try {
+        const response = await updateUserInfo({
+          username: values.username,
+          email: values.email,
+          image: values.image,
+        });
+        if (response?.data?.user) {
+          setUser({ ...response.data.user });
+          navigate("/profile");
         }
-    })
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  const handleBack=()=>navigate('/profile');
+  
   return (
-    <form className="edit-profile-container">
-      <Avatar src={formik.values?.image ?? "https://t4.ftcdn.net/jpg/02/43/27/53/360_F_243275391_13fluVMJtkV7hnBxItx8D1Ac9MScUkQM.jpg"} alt="image" size={100}/>
-      <SCInput
-        name="username"
-        type="text"
-        label="Name: "
-        id="cart-edit-profile-name"
-        formik={formik}
+    <form className="small-form-container edit-profile">
+      <div>
+      <Avatar
+      className="edit-profile-image"
+        src={
+          formik.values?.image ??
+          "https://t4.ftcdn.net/jpg/02/43/27/53/360_F_243275391_13fluVMJtkV7hnBxItx8D1Ac9MScUkQM.jpg"
+        }
+        alt="image"
+        size={100}
       />
-      <SCInput
-        name="email"
-        type="email"
-        label="Email Address: "
-        id="cart-edit-profile-email"
-        formik={formik}
-      />
-      <SCInput
-        name="image"
-        type="text"
-        label="Image URL: "
-        id="cart-edit-profile-image"
-        formik={formik}
-        placeholder={formik.values?.image ?? `No Image URL found`}
-      />
-      <PrimaryButton Action="Edit Profile" onCLick={formik.handleSubmit}/>
+      </div>
+      <div>
+      {profileOptions.map((option) => (
+        <SCInput formik={formik} option={option} />
+      ))}
+      </div>
+      <div className="edit-profile-action flex flex-justify">
+      <PrimaryButton Action="Edit Profile" onCLick={formik.handleSubmit} />
+      <PrimaryButton Action="Back" onCLick={handleBack} />
+      </div>
     </form>
   );
 }

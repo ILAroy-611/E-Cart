@@ -60,6 +60,7 @@ function AddItem() {
           console.error(error);
         }
       };
+      
       let editFunc=async()=>{
         try {
           let isItemUpdated = await editItem({

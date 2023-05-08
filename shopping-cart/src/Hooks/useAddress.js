@@ -24,17 +24,13 @@ function useAddress() {
     return addressFetched;
   }
 
-  //to add a new address-
-  async function addAddress(userAddres) {
+  //to add/edit user's address-
+  async function addOrEditAddress({body, method}) {
     // console.log(userAddres);
     let newAddressAdded = false;
-    let body = {
-      address: {
-        address: userAddres,
-      },
-    };
+    
     try {
-      const response = await instance.post(
+      const response = await instance[method](
         `user/address`,
         JSON.stringify(body),
         {
@@ -43,12 +39,14 @@ function useAddress() {
           },
         }
       );
+      console.log('address res', response)
       newAddressAdded = true;
     } catch (error) {
       console.log(error);
     }
     return newAddressAdded;
   }
+
 
   //to delete a address-
   async function deleteAddress(addressID) {
@@ -74,7 +72,7 @@ function useAddress() {
     }
   }
 
-  return { addAddress, fetchUserAddress, address, deleteAddress };
+  return { addOrEditAddress, fetchUserAddress, address, deleteAddress };
 }
 
 export default useAddress;

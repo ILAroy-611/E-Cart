@@ -21,4 +21,10 @@ export const registerOption = [
         placeholder: "Enter password",
       },
   ];
+
+export const initialValues={
+  name: "",
+  email: "",
+  password: "",
+}
   
