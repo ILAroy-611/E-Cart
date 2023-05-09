@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SCInput from "../../Components/sc-input";
 import PrimaryButton from "../../Components/button/PrimaryButton";
 import useAuth from "../../Hooks/useAuth";
@@ -12,6 +12,7 @@ import "./login.css";
 function Login() {
   const { authorizeUser } = useAuth();
   const navigate = useNavigate();
+  const {state} = useLocation();
   const { setUser } = useContext(counterContext);
   
   const formik = useFormik({
@@ -30,7 +31,7 @@ function Login() {
         });
         if (response?.data?.user) {
           setUser({ ...response.data.user });
-          navigate("/");
+          navigate(state?.path ?? "/");
         }
       } catch (error) {
         console.error(error);

@@ -21,3 +21,14 @@ export const profileOptions = [
     placeholder: "No Image URL",
   },
 ];
+
+export const getInitialValues=(user)=>{
+  const initialValues={
+    username: user.username,
+    email: user.email,
+    image: user.image,
+  }
+  return initialValues
+}
+
+// username:JSON.parse(localStorage.getItem("user")).username,

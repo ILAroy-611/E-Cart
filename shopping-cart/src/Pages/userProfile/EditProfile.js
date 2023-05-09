@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import PrimaryButton from "../../Components/button/PrimaryButton";
 import SCInput from "../../Components/sc-input/SCInput";
 import useAuth from "../../Hooks/useAuth";
-import { profileOptions } from "./helper";
+import { getInitialValues, profileOptions } from "./helper";
 import { useContext } from "react";
 import counterContext from "../../Hooks/Context";
 import { useNavigate } from "react-router-dom";
@@ -17,12 +17,7 @@ function EditProfile() {
   const navigate = useNavigate();
 
   const formik = useFormik({
-    initialValues: {
-      username: user.username,
-      email: user.email,
-      image: user.image,
-      // username:JSON.parse(localStorage.getItem("user")).username,
-    },
+    initialValues: getInitialValues(user) ,
     onSubmit: async (values) => {
       try {
         const response = await updateUserInfo({

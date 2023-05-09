@@ -67,14 +67,16 @@ function AddAddress() {
         }
       };
 
-      location.state ?  handleEditAddress() : handleAddAddress();
+      location.state ? handleEditAddress() : handleAddAddress();
     },
   });
 
   return (
     <section className="container">
       <form className="medium-form-container">
-        <legend className="legend">{location.state? "Edit your Address" :"Add new address"}</legend>
+        <legend className="legend">
+          {location.state ? "Edit your Address" : "Add new address"}
+        </legend>
         <fieldset>
           {addressOption.map((options) => (
             <>
@@ -82,7 +84,16 @@ function AddAddress() {
             </>
           ))}
         </fieldset>
-        <PrimaryButton Action={location.state? "Edit Address" :"Add address"} onCLick={formik.handleSubmit} />
+        <fieldset className="flex flex-justify">
+          <PrimaryButton
+            Action={location.state ? "Edit Address" : "Add address"}
+            onCLick={formik.handleSubmit}
+          />
+          <PrimaryButton
+            Action={"Go Back"}
+            onCLick={() => navigate("/address")}
+          />
+        </fieldset>
       </form>
     </section>
   );

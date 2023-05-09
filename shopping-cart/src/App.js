@@ -16,36 +16,80 @@ import useProducts from "./Hooks/useProducts";
 import counterContext from "./Hooks/Context";
 import DisplayFavList from "./Pages/favorite/DisplayFavList";
 import "./App.css";
-
-
+import NotFound from "./Components/notFound/NotFound";
+import ProtectedRoutes from "./utilityFUnctions/ProtectedRoutes";
 
 function App() {
   const { user } = useContext(counterContext);
-  
 
   return (
-      <div className="App">
-        <Header />
-        <Routes>
-          {user.isAdmin ? (
-            <Route exact path="/" element={<AdminHome />}></Route>
-          ) : (
-            <Route exact path="/" element={<Home />}></Route>
-          )}
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/profile" element={<UserProfile />}></Route>
-          <Route path="/edit-profile" element={<EditProfile />}></Route>
-          <Route exact path="/address" element={<DisplayAddress />}></Route>
-          <Route path="/address/:mode" element={<AddAddress />}></Route>
-          {/* <Route path="/address/" element={<EditAddress />}></Route> */}
-          <Route exact path="/admin/item/:mode" element={<AddItem />}></Route>
-          <Route path="/admin/items" element={<DisplayItems />}></Route>
-          <Route path="/admin/allUsers" element={<DisplayUser />}></Route>
-          <Route path="/cart" element={<MyCart />}></Route>
-          <Route path="/favList" element={<DisplayFavList />}></Route>
-        </Routes>
-      </div>
+    <div className="App">
+      <Header />
+      <Routes>
+        {user.isAdmin ? (
+          <Route exact path="/" element={<AdminHome />} />
+        ) : (
+          <Route exact path="/" element={<Home />} />
+        )}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoutes>
+              <UserProfile />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/edit-profile"
+          element={
+            <ProtectedRoutes>
+              <EditProfile />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          exact
+          path="/address"
+          element={
+            <ProtectedRoutes>
+              <DisplayAddress />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/address/:mode"
+          element={
+            <ProtectedRoutes>
+              <AddAddress />
+            </ProtectedRoutes>
+          }
+        />
+        {/* <Route path="/address/" element={<EditAddress />}/> */}
+        <Route
+          exact
+          path="/admin/item/:mode"
+          element={
+            <ProtectedRoutes>
+              <AddItem />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/admin/items" element={<DisplayItems />} />
+        <Route
+          path="/admin/allUsers"
+          element={
+            <ProtectedRoutes>
+              <DisplayUser />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/cart" element={<MyCart />} />
+        <Route path="/favList" element={<DisplayFavList />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 }
 
