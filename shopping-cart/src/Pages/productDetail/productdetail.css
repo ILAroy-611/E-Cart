@@ -1,0 +1,44 @@
+.img-item {
+  border: 1px solid grey;
+  border-radius: 1rem;
+  margin: 0.2rem 0;
+}
+
+.product-preview-sec {
+  align-items: stretch;
+}
+
+.product-image-list {
+  padding: 0.5rem 1rem;
+}
+
+.product-image {
+  max-width: 40%;
+  /* border: 1px solid black; */
+  padding: 0.5rem;
+}
+
+.product,
+.product-add-actionbar {
+  /* border: 1px solid black; */
+  padding: 0.5rem 2rem;
+}
+
+.product-add-actionbar {
+  border: 1px solid grey;
+  border-radius: 1rem;
+  max-width: 40%;
+  text-align: left;
+}
+
+.product {
+  max-width: 35%;
+  text-align: left;
+}
+
+.additional-info {
+  list-style-type: disc;
+  padding:0.5rem 1rem;
+}
+
+

@@ -24,7 +24,7 @@ function useAuth() {
   function logout() {
     localStorage.clear();
     setUser({ user: null });
-    navigate("/");
+    navigate("/login");
   }
 
   //to edit user info

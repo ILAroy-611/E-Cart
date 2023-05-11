@@ -5,6 +5,7 @@ import ItemCard from "../../Components/card/ItemCard";
 import "./home.css";
 import counterContext from "../../Hooks/Context";
 import { Skeleton } from "antd";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   // const {fetchAllProducts, products} = useProducts();
@@ -29,9 +30,20 @@ export default function Home() {
         <Skeleton />
       ) : (
         <div className="medium-display-container flex-wrap">
-          {products?.map((item) => (
-            <ItemCard itemDetail={item} key={item._id} />
-          ))}
+          {products?.map((item) => {
+            return (
+              <>
+                <Link
+                  to={`/products/${item.name}`}
+                  state={item}
+                  className="link"
+                  key={item._id}
+                >
+                  <ItemCard itemDetail={item} />
+                </Link>
+              </>
+            );
+          })}
         </div>
       )}
     </div>

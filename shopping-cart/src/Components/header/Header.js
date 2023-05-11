@@ -5,7 +5,7 @@ import { BsCart3 } from "react-icons/bs";
 import { adminItems, items } from "./dropdownMenuItems";
 import SCDropdown from "../dropdown/SCDropdown";
 import { TextButton } from "../button";
-import useProducts from "../../Hooks/useProducts";
+// import useProducts from "../../Hooks/useProducts";
 import { useContext, useEffect } from "react";
 import counterContext from "../../Hooks/Context";
 import "./header.css";
@@ -14,22 +14,22 @@ function Header() {
   // const { logout, user } = useAuth();
   const { logout } = useAuth();
   // const {  getItemsFromCart,  } = useProducts();
-  const {  getItemsFromCartOrWishList  } = useProducts();
+  // const {  getItemsFromCartOrWishList  } = useProducts();
   const { user, setCartInfo, cartInfo  } = useContext(counterContext);
 
-  async function handleSetCartCounter(){
-    try {
-      const response = await getItemsFromCartOrWishList({
-        url:`user/cart`,
-      });
-      await setCartInfo({...cartInfo, cart:response.data.cart.product, counter:response.data.cart.product.length});
-    } catch (error) {
-      console.log('handleSetCounter error ',error);
-    }
-  }
-  useEffect(()=>{
-    handleSetCartCounter();
-  },[cartInfo.counter]);
+  // async function handleSetCartCounter(){
+  //   try {
+  //     const response = await getItemsFromCartOrWishList({
+  //       url:`user/cart`,
+  //     });
+  //     await setCartInfo({...cartInfo, cart:response.data.cart.product, counter:response.data.cart.product.length});
+  //   } catch (error) {
+  //     console.log('handleSetCounter error ',error);
+  //   }
+  // }
+  // useEffect(()=>{
+  //   handleSetCartCounter();
+  // },[cartInfo.counter]);
 
 
   // useEffect(() => {

@@ -15,9 +15,10 @@ import { useContext } from "react";
 import useProducts from "./Hooks/useProducts";
 import counterContext from "./Hooks/Context";
 import DisplayFavList from "./Pages/favorite/DisplayFavList";
-import "./App.css";
 import NotFound from "./Components/notFound/NotFound";
+import ProductDetail from "./Pages/productDetail/ProductDetail";
 import ProtectedRoutes from "./utilityFUnctions/ProtectedRoutes";
+import "./App.css";
 
 function App() {
   const { user } = useContext(counterContext);
@@ -87,6 +88,7 @@ function App() {
         />
         <Route path="/cart" element={<MyCart />} />
         <Route path="/favList" element={<DisplayFavList />} />
+        <Route path="/products/:prodId" element={<ProductDetail  />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
