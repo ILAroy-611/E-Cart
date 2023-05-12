@@ -33,14 +33,14 @@ export default function Home() {
           {products?.map((item) => {
             return (
               <>
-                <Link
+                {/* <Link
                   to={`/products/${item.name}`}
                   state={item}
                   className="link"
                   key={item._id}
-                >
+                > */}
                   <ItemCard itemDetail={item} />
-                </Link>
+                {/* </Link> */}
               </>
             );
           })}

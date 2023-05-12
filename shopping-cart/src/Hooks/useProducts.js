@@ -185,11 +185,59 @@ function useProducts() {
   //   return success;
   // }
 
+  //to get all comments for a particular product
+  async function getAllCommentsforProduct(prodId) {
+    let body = {
+      comment: {
+        productId: prodId,
+      },
+    };
+    try {
+      const response = await instance.post(`comments/all`, JSON.stringify(body));
+      // console.log(response.data.comments);
+      return response;
+    } catch (error) {
+      console.log("get comments error", error.response.message);
+    }
+  }
+
+  //to add comment for a product-
+  async function addOrEditComment({ body, method }) {
+    try {
+      let response = await instance[method](`comments`, JSON.stringify(body), {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log("add/edit comment error", error);
+    }
+  }
+
+  //to delete a comment-
+  async function deleteComment( body ) {
+    try {
+      let response = await instance.delete(`comments`, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+        data: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.log("delete comment error", error);
+    }
+  }
+
   return {
     fetchAllProducts,
     addItemsinCartOrWishList,
     getItemsFromCartOrWishList,
     removeItemsFromCartOrWishList,
+    getAllCommentsforProduct,
+    addOrEditComment,
+    deleteComment,
   };
 }
 //addItemtoCart,

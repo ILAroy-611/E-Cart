@@ -64,7 +64,7 @@ function FavoriteCard({ item }) {
           />
           <div className="item-description flex-item">
             <h4>{item?.name}</h4>
-            <p>{item?.discription}</p>
+            {/* <p>{item?.discription}</p> */}
             {item.size ? <p>{item.size}</p> : <></>}
             {item.color ? <p>{item.color}</p> : <></>}
             <footer className="cart-item-action-btns">

@@ -69,13 +69,32 @@ function ItemCard({ itemDetail }) {
           width: 280,
           border: "1px solid black",
         }}
-        cover={<img alt="item" src={itemDetail?.image} height="300px" />}
+        cover={
+          <Link
+            to={`/products/${itemDetail.name}`}
+            state={itemDetail}
+            className="link"
+            key={itemDetail._id}
+          >
+            {" "}
+            <img alt="item" src={itemDetail?.image} height="260px" width="270px"/>
+          </Link>
+        }
       >
         <Meta
-          title={`${itemDetail?.name} | ${itemDetail?.category} | ${
-            itemDetail?.subCategory ?? ""
-          }`}
-          description={`${itemDetail?.discription ?? ""}`}
+          title=
+            {<Link
+              to={`/products/${itemDetail.name}`}
+              state={itemDetail}
+              className="link"
+              key={itemDetail._id}
+            >
+              {
+              `${itemDetail?.name} | ${itemDetail?.category} | $
+              {itemDetail?.subCategory ?? ""}`}
+            </Link>
+            }
+          // description={`${itemDetail?.discription ?? ""}`}
           style={{
             overflowWrap: "break-word",
           }}

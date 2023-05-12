@@ -5,7 +5,7 @@
 }
 
 .product-preview-sec {
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .product-image-list {
@@ -37,8 +37,44 @@
 }
 
 .additional-info {
-  list-style-type: disc;
+  /* list-style-type: disc; */
   padding:0.5rem 1rem;
 }
 
+.additional-info p{
+    color:green
+}
 
+.additional-info::marker{
+    content:"*";
+    color:goldenrod;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.customer-discription-sec{
+    border-top: 1px solid grey;
+    text-align: left;
+    margin:2rem 1rem;
+    border-bottom:1px solid grey;
+    padding:2rem 0;
+}
+
+.customer-discription-sec::before{
+    content:"Product Description";
+    font-size:2rem;
+    font-weight: 700;
+    display: inline-block;
+    margin:1rem 0;
+}
+
+.customer-reviews-sec{
+  max-width:60%;
+  margin:4rem 0;
+  
+}
+
+.customer-review-heading{
+  text-align: left;
+  font-weight: 700;
+}

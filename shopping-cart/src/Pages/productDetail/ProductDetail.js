@@ -1,15 +1,31 @@
 import { useLocation } from "react-router-dom";
-import "./productdetail.css";
 import PrimaryButton from "../../Components/button/PrimaryButton";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import counterContext from "../../Hooks/Context";
+import useProducts from "../../Hooks/useProducts";
+import CommentCard from "../../Components/card/commentCard/CommentCard";
+import "./productdetail.css";
+
 
 function ProductDetail() {
   const { state } = useLocation();
   const [index, setIndex] = useState(0);
-  //   const handleSetIndex=(ind)=>{
-  //     setIndex(ind);
-  //   }
-  // console.log(state);
+  const {commentsList, setCommentsList} = useContext(counterContext);
+
+  const { getAllCommentsforProduct } = useProducts();
+
+  const handleGetComments=async()=>{
+    try {
+      let response = await getAllCommentsforProduct(state._id);
+      console.log(response, state._id)
+      setCommentsList([...response.data.comments])
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    handleGetComments();
+  },[])
   return (
     <section>
       {/* <h2>Hello</h2> */}
@@ -36,19 +52,31 @@ function ProductDetail() {
           <div className="product">
             <h2 className="heading-1 letter-space">{state.name}</h2>
             <div className="rating">{state.stars}</div>
-            <h2 className="discount heading-2">{state?.discount ? -state?.discount+'%' : null}</h2>
-            <h2 className="product-price heading-2">Price:&#8377;{state.price}/-</h2>
+            <h2 className="discount heading-2">
+              {state?.discount ? -state?.discount + "%" : null}
+            </h2>
+            <h2 className="product-price heading-2">
+              Price:&#8377;{state.price}/-
+            </h2>
           </div>
           <div className="product-add-actionbar">
-            <h2 className="product-price heading-2">MRP:&#8377;{state.price}</h2>
-            <h2 className="product-price heading-2">Discount: {state?.discount ? state?.discount+'%' : '-NA-'}</h2>
-            <h2 className="product-price heading-2">Net-Price: &#8377;{state.price*(1-0.001*state?.discount)}</h2>
+            <h2 className="product-price heading-2">
+              MRP:&#8377;{state.price}
+            </h2>
+            <h2 className="product-price heading-2">
+              Discount: {state?.discount ? state?.discount + "%" : "-NA-"}
+            </h2>
+            <h2 className="product-price heading-2">
+              Net-Price: &#8377;{state.price * (1 - 0.001 * state?.discount)}
+            </h2>
             <ul>
               <li className="additional-info">
                 <p>In Stock</p>
               </li>
               <li className="additional-info">
-                <p>Qualified for <strong>Free Delivery</strong></p>
+                <p>
+                  Qualified for <strong>Free Delivery</strong>
+                </p>
               </li>
             </ul>
             <h3 className="heading-3">Seller: {state.seller}</h3>
@@ -57,9 +85,23 @@ function ProductDetail() {
           </div>
         </div>
         <div className="customer-discription-sec">
-        <h2 className="heading-2">{state.discription}</h2>
+          {state.discription.map((desc) => {
+            return (
+              <ul>
+                <li>
+                  <h2 className="heading-2">{desc}</h2>
+                </li>
+              </ul>
+            );
+          })}
         </div>
-        <div className="customer-reviews-sec"></div>
+        <div className="customer-reviews-sec">
+          <h2 className="heading-2 customer-review-heading">Customer Reviews</h2>
+          {commentsList!=null?
+          commentsList.map(comment=><CommentCard key={comment._id} comment={comment} prodId={state._id}/>)
+        :
+        <></>}
+        </div>
       </div>
     </section>
   );
