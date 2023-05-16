@@ -4,28 +4,55 @@ import { useContext, useEffect, useState } from "react";
 import counterContext from "../../Hooks/Context";
 import useProducts from "../../Hooks/useProducts";
 import CommentCard from "../../Components/card/commentCard/CommentCard";
+import ActionButton from "../../Components/button/ActionButton";
+import CustomModal from "../../Components/modal/Modal";
+import useModal from "../../Hooks/useModal";
+import SCInput from "../../Components/sc-input/SCInput";
 import "./productdetail.css";
-
+import { addCommentOption, initialValues } from "./helper";
+import { useFormik } from "formik";
 
 function ProductDetail() {
   const { state } = useLocation();
   const [index, setIndex] = useState(0);
-  const {commentsList, setCommentsList} = useContext(counterContext);
+  const { commentsList, setCommentsList } = useContext(counterContext);
+  const { openModal, toggle, handleConfirmLoading, confirmLoading } = useModal();
 
-  const { getAllCommentsforProduct } = useProducts();
+  const { getAllCommentsforProduct, addOrEditComment } = useProducts();
 
-  const handleGetComments=async()=>{
+  const formik = useFormik({
+    initialValues: initialValues,
+    onSubmit: async (values) => {
+      let body = {
+        comment: {
+          stars: values.stars,
+          body: values.body,
+          productId: state._id,
+        },
+      };
+      try {
+        let response = await addOrEditComment({ method: "post", body });
+        handleConfirmLoading();
+        setCommentsList([...commentsList, ...response.data.comment]);
+        toggle();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+
+  const handleGetComments = async () => {
     try {
       let response = await getAllCommentsforProduct(state._id);
-      console.log(response, state._id)
-      setCommentsList([...response.data.comments])
+      // console.log(response, state._id);
+      setCommentsList([...response.data.comments]);
     } catch (error) {
       console.log(error);
     }
-  }
-  useEffect(()=>{
+  };
+  useEffect(() => {
     handleGetComments();
-  },[])
+  }, []);
   return (
     <section>
       {/* <h2>Hello</h2> */}
@@ -96,11 +123,34 @@ function ProductDetail() {
           })}
         </div>
         <div className="customer-reviews-sec">
-          <h2 className="heading-2 customer-review-heading">Customer Reviews</h2>
-          {commentsList!=null?
-          commentsList.map(comment=><CommentCard key={comment._id} comment={comment} prodId={state._id}/>)
-        :
-        <></>}
+          <div className="flex flex-justify">
+            <h2 className="heading-2 customer-review-heading">
+              Customer Reviews
+            </h2>
+            <ActionButton Action="Add Comment" onCLick={toggle} />
+            <CustomModal
+              open={openModal}
+              modal_title="Add Comment"
+              handleCancel={toggle}
+              handleOk={formik.handleSubmit}
+              confirmLoading={confirmLoading}
+            >
+              {addCommentOption.map((option) => (
+                <SCInput formik={formik} option={option} />
+              ))}
+            </CustomModal>
+          </div>
+          {commentsList != null ? (
+            commentsList.map((comment) => (
+              <CommentCard
+                key={comment._id}
+                comment={comment}
+                prodId={state._id}
+              />
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </section>

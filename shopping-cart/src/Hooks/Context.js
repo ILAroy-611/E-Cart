@@ -13,6 +13,7 @@ export const CounterCntxtProvider = ({ children }) => {
   const [cartInfo, setCartInfo] = useState({ cart: [], counter: 0 });
   const [commentsList, setCommentsList] = useState([]);
   const [favList, setFavList] = useState([]);
+  
   // const [counter, setCounter] = useState(cart?.length ?? 0);
 
   const increment = () => {
@@ -22,6 +23,8 @@ export const CounterCntxtProvider = ({ children }) => {
   const decrement = () => {
     setCartInfo({ ...cartInfo, counter: cartInfo.counter - 1 });
   };
+
+ 
 
   return (
     <counterContext.Provider

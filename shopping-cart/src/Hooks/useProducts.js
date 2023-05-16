@@ -209,7 +209,7 @@ function useProducts() {
           Authorization: `${localStorage.getItem("token")}`,
         },
       });
-      console.log(response);
+      // console.log(response.data.comment);
       return response;
     } catch (error) {
       console.log("add/edit comment error", error);
