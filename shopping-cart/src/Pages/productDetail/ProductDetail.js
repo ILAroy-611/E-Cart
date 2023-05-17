@@ -31,6 +31,7 @@ function ProductDetail() {
         },
       };
       try {
+        handleConfirmLoading();
         let response = await addOrEditComment({ method: "post", body });
         handleConfirmLoading();
         setCommentsList([...commentsList, ...response.data.comment]);

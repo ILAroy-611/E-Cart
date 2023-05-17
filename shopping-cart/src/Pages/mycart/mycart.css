@@ -18,3 +18,21 @@
 .cart-subtotal-container{
     width:30%;
 }
+
+.cart-item-image{
+    width:30%;
+}
+
+.cart-item-price{
+    width:35%;
+}
+
+.cart-item-description{
+    width:60%;
+    /* border:1px solid black; */
+}
+
+.cart-item-price,
+.cart-item-description{
+    padding:1rem 1.5rem;
+}

@@ -32,6 +32,7 @@ function CommentCard({ comment, prodId }) {
         },
       };
       try {
+        handleConfirmLoading();
         let response = await addOrEditComment({ method: "put", body });
         let comments = await getAllCommentsforProduct(prodId);
         handleConfirmLoading();

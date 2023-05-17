@@ -12,7 +12,7 @@ function useModal() {
     setConfirmLoading(!confirmLoading);
   }
 
-  return { openModal, setOpenModal, toggle, handleConfirmLoading };
+  return { openModal, setOpenModal, toggle,confirmLoading, handleConfirmLoading };
 }
 
 export default useModal;
