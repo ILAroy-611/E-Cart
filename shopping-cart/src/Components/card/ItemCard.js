@@ -1,6 +1,6 @@
 import { Card } from "antd";
 import { Link } from "react-router-dom";
-import ActionButton from "../button/ActionButton";
+import ActionButton from "../ui/button/ActionButton";
 import useAdminPriv from "../../Hooks/useAdminPriv";
 import useAuth from "../../Hooks/useAuth";
 import useProducts from "../../Hooks/useProducts";

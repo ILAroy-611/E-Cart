@@ -1,38 +1,35 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 // import PrimaryButton from "../../Components/button/PrimaryButton";
 import useAddress from "../../Hooks/useAddress";
 import { AddressCard } from "../../Components/card";
 import { MdAddLocationAlt } from "react-icons/md";
+import counterContext from "../../Hooks/Context";
+import { Skeleton } from "antd";
 import "./displayaddress.css";
 
 
 
 function DisplayAddress() {
-  const { fetchUserAddress, address, deleteAddress } = useAddress();
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function fetchAddress() {
-      try {
-        let addressFetched = await fetchUserAddress();
-        if (addressFetched) {
-          setLoading(false);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+  const { fetchUserAddress, loading, setLoading } = useAddress();
+  const {address, setAddress} = useContext(counterContext);
+  
+
+  async function fetchAddress() {
+    try {
+      let response = await fetchUserAddress();
+      setAddress([...response.data.address]);
+      // setLoading(false);
+      setTimeout(()=>setLoading(false), 2000)
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  useEffect(() => {
     fetchAddress();
   }, []);
 
-  const handleDeleteAddress=async(addressID)=>{
-    try{
-        await deleteAddress(addressID);
-    }
-    catch(error){
-        console.log(error)
-    }
-  }
   return (
     <section className="displayaddress-container">
       <header className="displayaddress-header flex">
@@ -41,16 +38,13 @@ function DisplayAddress() {
           <MdAddLocationAlt /> Add Address
         </NavLink>
       </header>
-
-      {loading ? (
-        <p className="loading-para">Loading... please wait!</p>
-      ) : (
-        <div className="flex addresses">
-          {address.map((ele) => (
-            <AddressCard key={ele._id} address={ele.address} onCLick={handleDeleteAddress} addressID={ele._id}/>
+      <Skeleton loading={loading}>
+      <div className="flex addresses">
+          {address?.map((ele) => (
+            <AddressCard key={ele._id} userAddress={ele.address} addressID={ele._id}/>
           ))}
         </div>
-      )}
+      </Skeleton>
     </section>
   );
 }

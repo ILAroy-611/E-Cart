@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ProfileCard from "../../Components/card/ProfileCard";
+import ProfileCard from "../../Components/parts/profile/ProfileCard";
 import counterContext from "../../Hooks/Context";
 
 function UserProfile() {

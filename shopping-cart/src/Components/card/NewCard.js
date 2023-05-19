@@ -6,8 +6,14 @@ function NewCard({
   bordered,
   card_style,
   card_actions,
-  meta,
   card_title,
+  card_cover,
+  meta={meta_title:'',
+    meta_description:'',
+    meta_avatar:'',
+    meta_avatarShape:'',
+    meta_avatarSize:''},
+  
 }) {
 
   const {
@@ -32,6 +38,7 @@ function NewCard({
         hoverable
         style={card_style}
         actions={card_actions}
+        cover={card_cover? card_cover : ''}
       >
         {children}
         <Meta

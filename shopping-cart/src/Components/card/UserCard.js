@@ -2,7 +2,7 @@
 import { Avatar, Card, Space } from "antd";
 import { BiBlock } from "react-icons/bi";
 import { ImUnlocked } from "react-icons/im";
-import ActionButton from "../button/ActionButton";
+import ActionButton from "../ui/button/ActionButton";
 import useAdminPriv from "../../Hooks/useAdminPriv";
 
 

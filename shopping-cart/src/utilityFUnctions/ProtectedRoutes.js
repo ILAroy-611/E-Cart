@@ -24,7 +24,7 @@ function ProtectedRoutes({ children }) {
 
   return (
     <div>
-        {console.log(user)}
+        {/* {console.log(user)} */}
       {user.username ? (
         children
       ) : (

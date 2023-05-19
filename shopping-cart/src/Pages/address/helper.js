@@ -1,15 +1,16 @@
-export const getInitialValues = (address) => {
+export const getInitialValues = (userAddress) => {
   const initialValues = {
-    name: address?.name ?? "",
-    sonOf: address?.sonOf ?? "",
-    mobNumber: address?.mobNumber ?? "",
-    address1: address?.address1 ?? "",
-    address2: address?.address2 ?? "",
-    area: address?.area ?? "",
-    district: address?.district ?? "",
-    state: address?.state ?? "",
-    pinCode: address?.pinCode ?? "",
+    name: userAddress?.name ?? "",
+    sonOf: userAddress?.sonOf ?? "",
+    mobNumber: userAddress?.mobNumber ?? "",
+    address1: userAddress?.address1 ?? "",
+    address2: userAddress?.address2 ?? "",
+    area: userAddress?.area ?? "",
+    district: userAddress?.district ?? "",
+    state: userAddress?.state ?? "",
+    pinCode: userAddress?.pinCode ?? "",
   };
+  // console.log(initialValues);
   return initialValues;
 };
 

@@ -3,44 +3,94 @@ import PrimaryButton from "../../Components/button/PrimaryButton";
 import { useContext, useEffect, useState } from "react";
 import counterContext from "../../Hooks/Context";
 import useProducts from "../../Hooks/useProducts";
-import CommentCard from "../../Components/card/commentCard/CommentCard";
+import CommentCard from "../../Components/card/comment/Comment";
 import ActionButton from "../../Components/button/ActionButton";
 import CustomModal from "../../Components/modal/Modal";
 import useModal from "../../Hooks/useModal";
 import SCInput from "../../Components/sc-input/SCInput";
-import "./productdetail.css";
 import { addCommentOption, initialValues } from "./helper";
 import { useFormik } from "formik";
+// import NewCard from "../../Components/card/NewCard";
+import "./productdetail.css";
 
 function ProductDetail() {
   const { state } = useLocation();
   const [index, setIndex] = useState(0);
-  const { commentsList, setCommentsList } = useContext(counterContext);
-  const { openModal, toggle, handleConfirmLoading, confirmLoading } = useModal();
+  // const [editMode, setEditMode] = useState(false);
+  const { user, commentsList, setCommentsList } = useContext(counterContext);
+  const { openModal, toggle, handleConfirmLoading, confirmLoading } =
+    useModal();
 
   const { getAllCommentsforProduct, addOrEditComment } = useProducts();
+
+  // const handleDeleteComment = async (comment, prodId) => {
+  //   let body = {
+  //     comment: {
+  //       id: comment.id,
+  //       productId: prodId,
+  //     },
+  //   };
+  //   try {
+  //     let response = await deleteComment(body);
+  //     if (response.msg) window.location.reload();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: async (values) => {
-      let body = {
-        comment: {
-          stars: values.stars,
-          body: values.body,
-          productId: state._id,
-        },
-      };
       try {
         handleConfirmLoading();
-        let response = await addOrEditComment({ method: "post", body });
-        handleConfirmLoading();
+        let response = await addOrEditComment({
+          method: "post",
+          body: {
+            comment: {
+              stars: values.stars,
+              body: values.body,
+              productId: state._id,
+            },
+          },
+        });
         setCommentsList([...commentsList, ...response.data.comment]);
         toggle();
       } catch (error) {
         console.log(error);
+      } finally {
+        handleConfirmLoading();
       }
     },
   });
+
+  // const handleEditComment = async (comment) => {
+  //   // event.stopPropagation();
+  //   // initialValues = getInitialValues(comment);
+  //   setEditMode(true);
+  //   toggle();
+  //   console.log("open", openModal);
+  //   try {
+  //     handleConfirmLoading();
+  //     let response = await addOrEditComment({
+  //       method: "put",
+  //       body: {
+  //         comment: {
+  //           id: comment.id,
+  //           stars: formik.values.stars,
+  //           body: formik.values.body,
+  //           productId: state._id,
+  //         },
+  //       },
+  //     });
+  //     let comments = await getAllCommentsforProduct(state._id);
+  //     setCommentsList([...comments.data.comments]);
+  //     toggle();
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     handleConfirmLoading();
+  //   }
+  // };
 
   const handleGetComments = async () => {
     try {
@@ -51,12 +101,12 @@ function ProductDetail() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     handleGetComments();
   }, []);
   return (
     <section>
-      {/* <h2>Hello</h2> */}
       <div className="product-details-container large-display-container">
         <div className="product-preview-sec flex flex-justify">
           <div className="product-image-list">
@@ -131,7 +181,7 @@ function ProductDetail() {
             <ActionButton Action="Add Comment" onCLick={toggle} />
             <CustomModal
               open={openModal}
-              modal_title="Add Comment"
+              modal_title={"Add Comment"}
               handleCancel={toggle}
               handleOk={formik.handleSubmit}
               confirmLoading={confirmLoading}

@@ -6,19 +6,22 @@ import useAddress from "../../Hooks/useAddress";
 import { validationSchema } from "./Validation";
 import { addressOption, getInitialValues } from "./helper";
 import "./addAddress.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import counterContext from "../../Hooks/Context";
 
 function AddAddress() {
   const navigate = useNavigate();
   const { addOrEditAddress } = useAddress();
-  const location = useLocation();
-  const initialValues = getInitialValues(location?.state?.address);
+  const {address, setAddress} = useContext(counterContext);
+
+  const {state} = useLocation();
+  const initialValues = getInitialValues(state?.userAddress);
 
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      let newAddress = {
+      let newAddress={
         name: values.name,
         sonOf: values.sonOf,
         mobNumber: values.mobNumber,
@@ -29,45 +32,43 @@ function AddAddress() {
         state: values.state,
         pinCode: values.pinCode,
       };
-
       let handleAddAddress = async () => {
         try {
-          let newAddressAdded = await addOrEditAddress({
+          let response = await addOrEditAddress({
             body: {
               address: {
-                address: newAddress,
+                address: newAddress ,
               },
             },
             method: "post",
           });
-          if (newAddressAdded) {
-            navigate("/profile");
-          }
+          // setAddress([...response.data.address]);
         } catch (error) {
           console.log(error);
+        }finally{
+          navigate("/address");
         }
       };
 
       let handleEditAddress = async () => {
         try {
-          const newAddressAdded = await addOrEditAddress({
+          await addOrEditAddress({
             body: {
               address: {
-                id: location?.state?.addressID,
+                id: state?.addressID,
                 address: newAddress,
               },
             },
             method: "put",
           });
-          if (newAddressAdded) {
-            navigate("/profile");
-          }
         } catch (error) {
           console.log(error);
+        }finally{
+          navigate("/address");
         }
       };
 
-      location.state ? handleEditAddress() : handleAddAddress();
+      state!=null ? handleEditAddress() : handleAddAddress();
     },
   });
 
@@ -75,7 +76,7 @@ function AddAddress() {
     <section className="container">
       <form className="medium-form-container">
         <legend className="legend">
-          {location.state ? "Edit your Address" : "Add new address"}
+          {state ? "Edit your Address" : "Add new address"}
         </legend>
         <fieldset>
           {addressOption.map((options) => (
@@ -86,7 +87,7 @@ function AddAddress() {
         </fieldset>
         <fieldset className="flex flex-justify">
           <PrimaryButton
-            Action={location.state ? "Edit Address" : "Add address"}
+            Action={state ? "Edit Address" : "Add address"}
             onCLick={formik.handleSubmit}
           />
           <PrimaryButton

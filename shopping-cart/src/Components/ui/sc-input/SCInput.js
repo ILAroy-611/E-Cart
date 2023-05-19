@@ -4,7 +4,7 @@ export default function SCInput({ formik, option }) {
   const { name, type, placeholder, label, id } = option;
   let field = formik.touched[name];
   let errors = formik.errors[name];
-
+// console.log(formik.values);
   return (
     <>
       <label htmlFor={id}>{label}</label>
