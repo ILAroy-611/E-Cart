@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
-import useAuth from "../../Hooks/useAuth";
+import useAuth from "../../../Hooks/useAuth";
 import { BsCart3 } from "react-icons/bs";
 import { adminItems, items } from "./dropdownMenuItems";
-import SCDropdown from "../dropdown/SCDropdown";
-import { TextButton } from "../button";
-import useProducts from "../../Hooks/useProducts";
+import SCDropdown from "../../ui/dropdown";
+import  TextButton  from "../../ui/button/TextButton";
+import useProducts from "../../../Hooks/useProducts";
 import { useContext, useEffect } from "react";
-import counterContext from "../../Hooks/Context";
+import counterContext from "../../../Hooks/Context";
 import "./header.css";
 
 function Header() {

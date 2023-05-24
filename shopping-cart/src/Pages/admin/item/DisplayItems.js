@@ -1,17 +1,21 @@
 import { Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ItemCard from "../../../Components/card/ItemCard";
 import useAdminPriv from "../../../Hooks/useAdminPriv";
 import "./displayitems.css";
+import counterContext from "../../../Hooks/Context";
 
 function DisplayItems() {
-  const [loading, setLoading] = useState(true);
-  const { getAllItemsAdmin, items } = useAdminPriv();
+  // const [loading, setLoading] = useState(true);
+  const { getAllItemsAdmin, loading, setLoading } = useAdminPriv();
+  const { adminItem, setAdminItem } = useContext(counterContext);
 
   useEffect(() => {
     async function fetchItemsAdmin() {
+      // setLoading(true);
       try {
-        await getAllItemsAdmin();
+        let response = await getAllItemsAdmin();
+        setAdminItem([...response.data.products]);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -20,16 +24,28 @@ function DisplayItems() {
     fetchItemsAdmin();
   }, []);
   return (
+    // <>
+    //   {loading ? (
+    //     <Skeleton />
+    //   ) : (
+    //     <section className="flex admin-item-display">
+    //       {items.map((item) => {
+    //         return <ItemCard itemDetail={item} key={item._id} />;
+    //       })}
+    //     </section>
+    //   )}
+    // </>
     <>
-      {loading ? (
-        <Skeleton />
-      ) : (
-        <section className="flex admin-item-display">
-          {items.map((item) => {
-            return <ItemCard itemDetail={item} key={item._id} />;
+      <section className="flex admin-item-display">
+        {adminItem &&
+          adminItem.map((item) => {
+            return (
+              <Skeleton loading={loading}>
+                <ItemCard itemDetail={item} key={item._id} />
+              </Skeleton>
+            );
           })}
-        </section>
-      )}
+      </section>
     </>
   );
 }

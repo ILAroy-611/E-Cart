@@ -2,37 +2,38 @@ import { useState } from "react";
 import instance from "../Store/AxiosInstance";
 
 function useAdminPriv() {
-  const [items, setItems] = useState();
+  // const [items, setItems] = useState();
+  const [loading, setLoading] = useState(true);
 
-  // to add items into database-
-  async function addItems(itemInfo) {
-    let itemAdded = false;
-    let body = {
-      items: [itemInfo],
-    };
+  // to add items into database-admin/add
+  async function addOrEditItemsinDB({method,url,body}) {
+    let itemAddedorEdited = false;
     try {
-      await instance.post(`admin/add`, JSON.stringify(body), {
+      let response = await instance[method](`${url}`, JSON.stringify(body), {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
       });
-      itemAdded = true;
+      itemAddedorEdited = true;
       // console.log(response);
+      // return response;
     } catch (error) {
       console.log(error);
     }
-    return itemAdded;
+    return itemAddedorEdited;
   }
 
   // to get all items from database-
   async function getAllItemsAdmin() {
+    console.log('in the code')
     try {
       const response = await instance.get(`admin/all`, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
       });
-      setItems(response.data.products);
+      return response ; 
+      // setItems(response.data.products);
     } catch (error) {
       console.log(error);
     }
@@ -157,11 +158,11 @@ function useAdminPriv() {
     blockUsers,
     unblockUsers,
     fetchAllUsers,
-    addItems,
-    items,
     getAllItemsAdmin,
-    editItem,
+    addOrEditItemsinDB,
     deleteItem,
+    loading, 
+    setLoading,
   };
 }
 

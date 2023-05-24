@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import useAdminPriv from "../../../Hooks/useAdminPriv";
 import { Skeleton } from "antd";
-import SCInput from "../../../Components/sc-input/SCInput";
+import SCInput from "../../../Components/ui/sc-input";
 import { useFormik } from "formik";
 import { FaSearch } from "react-icons/fa";
-import SCPagination from "../../../Components/pagination/SCPagination";
+import SCPagination from "../../../Components/parts/pagination";
 import { UserCard } from "../../../Components/card";
-import SCDropdown from "../../../Components/dropdown/SCDropdown";
+import SCDropdown from "../../../Components/ui/dropdown";
 import "./displayuser.css";
 import { searchItems } from "./helper";
 

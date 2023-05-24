@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import useProducts from "../../Hooks/useProducts";
-import { NewCard } from "../../Components/card";
+import  NewCard  from "../../Components/card/NewCard";
 import counterContext from "../../Hooks/Context";
-import ActionButton from "../../Components/button/ActionButton";
+import ActionButton from "../../Components/ui/button/ActionButton";
 import "./favlist.css";
 
 function DisplayFavList() {

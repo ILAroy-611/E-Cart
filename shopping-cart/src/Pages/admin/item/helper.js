@@ -4,13 +4,13 @@ export const inputOption = [
     type: "text",
     name: "name",
     id: "cart-add-item-name",
-    placeholder: "Name of item",
+    placeholder: "Name of the item you want to add",
   },
   {
     type: "text",
     name: "discription",
     id: "cart-add-item-discription",
-    placeholder: "Discription of item",
+    placeholder: "A brief Discription of the item to be added",
   },
   {
     type: "text",
@@ -109,7 +109,7 @@ export const getInitialValues=(item)=>{
     category: item?.category ?? "" ,
     subCatogery: item?.subCatogery ?? "" ,
     name: item?.name ?? "" ,
-    discription:item?.discription ?? "",
+    discription:item?.discription ?? [],
     image: item?.image ?? "" ,
     price: item?.price ?? "" ,
     brand: item?.brand ?? "" ,
@@ -125,5 +125,6 @@ export const getInitialValues=(item)=>{
     weight: item?.varient?.weight ?? 0,
     color: item?.varient?.color ?? "" ,
   };
+  console.log(initialValues);
   return initialValues
 }

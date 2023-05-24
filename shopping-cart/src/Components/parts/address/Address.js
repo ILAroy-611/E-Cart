@@ -1,4 +1,4 @@
-import { Space } from "antd";
+import { Skeleton, Space } from "antd";
 import { Link } from "react-router-dom";
 import { TextButton } from "../../ui/button";
 import NewCard from "../../card/NewCard";
@@ -9,7 +9,7 @@ import "./address.css";
 
 function AddressCard({ userAddress, addressID }) {
   const { address, setAddress } = useContext(counterContext);
-  const { fetchUserAddress, deleteAddress, loading, setLoading } = useAddress();
+  const { fetchUserAddress, deleteAddress} = useAddress();
 
   const handleDeleteAddress = async (addressID) => {
     try {
@@ -17,7 +17,8 @@ function AddressCard({ userAddress, addressID }) {
       if (addressDeleted) {
         let response = await fetchUserAddress();
         setAddress([...response.data.address]);
-        setLoading(false);
+        // setTimeout(()=>setLoading(false), 2000)
+        // setLoading(false);
       }
     } catch (error) {
       console.log(error);

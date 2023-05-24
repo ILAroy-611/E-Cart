@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
 import useProducts from "../../Hooks/useProducts";
-import { NewCard } from "../../Components/card";
-import SubTotalCard from "../../Components/subTotalCard/SubTotalCard";
+import NewCard from "../../Components/card";
+import SubTotalCard from "../../Components/parts/subTotalCard";
 import counterContext from "../../Hooks/Context";
-import ActionButton from "../../Components/button/ActionButton";
+import ActionButton from "../../Components/ui/button/ActionButton";
 import "./mycart.css";
 
 function MyCart() {

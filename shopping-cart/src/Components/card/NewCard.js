@@ -38,7 +38,7 @@ function NewCard({
         hoverable
         style={card_style}
         actions={card_actions}
-        cover={card_cover? card_cover : ''}
+        // cover={card_cover? card_cover : null}
       >
         {children}
         <Meta

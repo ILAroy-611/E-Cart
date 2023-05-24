@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
-import PrimaryButton from "../../Components/button/PrimaryButton";
-import SCInput from "../../Components/sc-input/SCInput";
+import PrimaryButton from "../../Components/ui/button/PrimaryButton";
+import SCInput from "../../Components/ui/sc-input";
 import useAddress from "../../Hooks/useAddress";
 import { validationSchema } from "./Validation";
 import { addressOption, getInitialValues } from "./helper";

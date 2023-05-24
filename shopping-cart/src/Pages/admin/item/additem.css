@@ -4,14 +4,17 @@
     /* border: 1px solid black; */
     padding-left: 2rem;
     padding-right: 6rem;;
-    justify-content: space-between;
+     justify-content: space-between; 
+    /* gap:3rem; */
 }
 
 .add-item-form{
-    width:50%;
+    width:55%;
+    /* border: 1px solid black; */
 }
 .varient{
     width:40%;
+    /* border: 1px solid black; */
 }
 
 .add-item-form legend{

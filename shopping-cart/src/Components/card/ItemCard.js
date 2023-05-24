@@ -66,18 +66,19 @@ function ItemCard({ itemDetail }) {
       <Card
         hoverable
         style={{
-          width: 280,
+          maxWidth:'28rem',
+          objectFit:'contain',
           border: "1px solid black",
         }}
         cover={
           <Link
-            to={`/products/${itemDetail.name}`}
+            to={`/products/${itemDetail._id}`}
             state={itemDetail}
-            className="link"
+            className="link item-cover"
             key={itemDetail._id}
           >
             {" "}
-            <img alt="item" src={itemDetail?.image} height="260px" width="270px"/>
+            <img alt="item" src={itemDetail?.image} height="250px" width="270px" />
           </Link>
         }
       >

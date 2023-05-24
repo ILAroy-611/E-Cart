@@ -9,7 +9,7 @@ import { getInitialValues } from "./helper";
 import { useFormik } from "formik";
 import { addCommentOption } from "../../../Pages/productDetail/helper";
 import SCInput from "../../ui/sc-input/SCInput";
-import NewCard from "../NewCard";
+import NewCard from "../../card";
 import "./comment.css";
 
 
@@ -84,11 +84,11 @@ function CommentCard({ comment, prodId }) {
             : null
         }
         meta={{
-          meta_title: comment.username,
+          meta_title: comment?.username ?? '',
           meta_description: (
             <>
-              <p>{comment.stars}</p>
-              <h4>{comment.body}</h4>
+              <p>{comment?.stars ?? ''}</p>
+              <h4>{comment?.body ?? ''}</h4>
             </>
           ),
           meta_avatar:

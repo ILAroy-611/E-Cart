@@ -1,7 +1,7 @@
 import { Avatar } from "antd";
 import { useFormik } from "formik";
-import PrimaryButton from "../../Components/button/PrimaryButton";
-import SCInput from "../../Components/sc-input/SCInput";
+import PrimaryButton from "../../Components/ui/button/PrimaryButton";
+import SCInput from "../../Components/ui/sc-input";
 import useAuth from "../../Hooks/useAuth";
 import { getInitialValues, profileOptions } from "./helper";
 import { useContext } from "react";

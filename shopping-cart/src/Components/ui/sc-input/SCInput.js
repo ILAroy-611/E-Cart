@@ -7,7 +7,7 @@ export default function SCInput({ formik, option }) {
 // console.log(formik.values);
   return (
     <>
-      <label htmlFor={id}>{label}</label>
+      {label ?<label htmlFor={id}>{label}</label>:null}
       <input
         type={type}
         name={name}

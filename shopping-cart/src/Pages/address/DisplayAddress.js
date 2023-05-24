@@ -2,18 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 // import PrimaryButton from "../../Components/button/PrimaryButton";
 import useAddress from "../../Hooks/useAddress";
-import { AddressCard } from "../../Components/card";
+import AddressCard from "../../Components/parts/address/Address";
 import { MdAddLocationAlt } from "react-icons/md";
 import counterContext from "../../Hooks/Context";
 import { Skeleton } from "antd";
 import "./displayaddress.css";
 
-
-
 function DisplayAddress() {
-  const { fetchUserAddress, loading, setLoading } = useAddress();
-  const {address, setAddress} = useContext(counterContext);
-  
+  const { fetchUserAddress,loading, setLoading  } = useAddress();
+  const { address, setAddress } = useContext(counterContext);
 
   async function fetchAddress() {
     try {
@@ -38,13 +35,19 @@ function DisplayAddress() {
           <MdAddLocationAlt /> Add Address
         </NavLink>
       </header>
-      <Skeleton loading={loading}>
+      {/* <Skeleton loading={loading}> */}
       <div className="flex addresses">
-          {address?.map((ele) => (
-            <AddressCard key={ele._id} userAddress={ele.address} addressID={ele._id}/>
-          ))}
-        </div>
-      </Skeleton>
+        {address?.map((ele) => (
+        <Skeleton loading={loading}> 
+          <AddressCard
+            key={ele._id}
+            userAddress={ele.address}
+            addressID={ele._id}
+          />
+          </Skeleton>
+        ))}
+      </div>
+      {/* </Skeleton> */}
     </section>
   );
 }

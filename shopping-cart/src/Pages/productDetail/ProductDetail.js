@@ -1,13 +1,13 @@
 import { useLocation } from "react-router-dom";
-import PrimaryButton from "../../Components/button/PrimaryButton";
+import PrimaryButton from "../../Components/ui/button/PrimaryButton";
 import { useContext, useEffect, useState } from "react";
 import counterContext from "../../Hooks/Context";
 import useProducts from "../../Hooks/useProducts";
-import CommentCard from "../../Components/card/comment/Comment";
-import ActionButton from "../../Components/button/ActionButton";
-import CustomModal from "../../Components/modal/Modal";
+import CommentCard from "../../Components/parts/comment/Comment";
+import ActionButton from "../../Components/ui/button/ActionButton";
+import CustomModal from "../../Components/ui/modal";
 import useModal from "../../Hooks/useModal";
-import SCInput from "../../Components/sc-input/SCInput";
+import SCInput from "../../Components/ui/sc-input";
 import { addCommentOption, initialValues } from "./helper";
 import { useFormik } from "formik";
 // import NewCard from "../../Components/card/NewCard";

@@ -74,6 +74,7 @@
 
 .medium-display-container{
   max-width:90%;
+  /* border:1px solid black */
 }
 
 .large-display-container{

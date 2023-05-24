@@ -14,6 +14,7 @@ export const CounterCntxtProvider = ({ children }) => {
   const [commentsList, setCommentsList] = useState([]);
   const [favList, setFavList] = useState([]);
   const [address, setAddress] = useState();
+  const [adminItem, setAdminItem] = useState();
   
   // const [counter, setCounter] = useState(cart?.length ?? 0);
 
@@ -44,6 +45,8 @@ export const CounterCntxtProvider = ({ children }) => {
         setCommentsList,
         address, 
         setAddress,
+        adminItem, 
+        setAdminItem
       }}
     >
       {children}
